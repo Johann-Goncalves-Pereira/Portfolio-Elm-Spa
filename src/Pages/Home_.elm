@@ -1,11 +1,23 @@
-module Pages.Home_ exposing (view)
+module Pages.Home_ exposing (page)
 
-import Html
+import Html exposing (Html, text)
+import Page exposing (Page)
+import Request exposing (Request)
+import Shared
+import UI
 import View exposing (View)
+
+
+page : Shared.Model -> Request -> Page
+page shared req =
+    Page.static
+        { view = view
+        }
 
 
 view : View msg
 view =
     { title = "Homepage"
-    , body = [ Html.text "Hello, world!" ]
+    , body =
+        UI.layout [ text "Homepage" ]
     }
