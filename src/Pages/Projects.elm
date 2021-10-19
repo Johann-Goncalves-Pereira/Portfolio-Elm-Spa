@@ -1,23 +1,59 @@
-module Pages.Projects exposing (page)
+module Pages.Projects exposing (Model, Msg, page)
 
 import Gen.Params.Projects exposing (Params)
-import Html exposing (text)
-import Page exposing (Page)
+import Gen.Route as Route exposing (Route)
+import Page
 import Request
 import Shared
 import UI
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page
+page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
-    Page.static
-        { view = view
+    Page.sandbox
+        { init = init
+        , update = update
+        , view = view
         }
 
 
-view : View msg
-view =
-    { title = "Project"
-    , body = UI.layout [ text "Project" ]
+
+-- INIT
+
+
+type alias Model =
+    { route : Route
+    }
+
+
+init : Model
+init =
+    { route = Route.Projects
+    }
+
+
+
+-- UPDATE
+
+
+type Msg
+    = ReplaceMe
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        ReplaceMe ->
+            model
+
+
+
+-- VIEW
+
+
+view : Model -> View Msg
+view model =
+    { title = "Johann - Projects"
+    , body = UI.layout model.route []
     }
