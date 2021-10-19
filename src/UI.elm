@@ -1,20 +1,43 @@
 module UI exposing (layout)
 
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, header, main_, text)
-import Html.Attributes exposing (class, href)
+import Html exposing (Html, a, button, header, main_, nav, text)
+import Html.Attributes exposing (class, classList, href)
 
 
-layout : List (Html msg) -> List (Html msg)
-layout children =
+isRoute : Route -> Route -> Bool
+isRoute route compare =
+    case ( route, compare ) of
+        ( Route.Home_, Route.Home_ ) ->
+            True
+
+        _ ->
+            False
+
+
+layout : Route -> List (Html msg) -> List (Html msg)
+layout route children =
     let
         viewLink : String -> Route -> Html msg
-        viewLink label route =
-            a [ href <| Route.toHref route ] [ text label ]
+        viewLink label routes =
+            a
+                [ href <| Route.toHref routes
+                , class "main-header__links"
+                , classList
+                    [ ( "main-header__links--current-page"
+                      , isRoute route routes
+                      )
+                    ]
+                ]
+                [ text label ]
     in
-    [ header [ class "navbar" ]
-        [ viewLink "Home" Route.Home_
-        , viewLink "Projects" Route.Projects
+    [ header [ class "main-header" ]
+        [ nav [ class "main-header__nav" ]
+            [ viewLink "Home" Route.Home_
+            , nav [ class "main-header__nav--small" ]
+                [ viewLink "Projects" Route.Projects
+                ]
+            ]
         ]
     , main_ [] children
     ]
