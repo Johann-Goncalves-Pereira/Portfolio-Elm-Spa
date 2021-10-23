@@ -1,0 +1,153 @@
+.main-home {
+	position: fixed;
+	margin: auto;
+	inset-block-start: 0;
+	inset-inline: 0;
+	height: 100vh;
+	max-width: 120rem;
+
+	&__container {
+		position: inherit;
+		inset-inline: 12vmin;
+		inset-block: 20vmax;
+		display: flex;
+		flex-direction: column;
+		row-gap: 0.5rem;
+	}
+
+	:is(&__big-title, &__medium-title) {
+		font-weight: 500;
+		margin: 0;
+		width: fit-content;
+	}
+
+	&__big-title {
+		font-size: var(--title-big);
+
+		&:last-child {
+			position: relative;
+			left: 3rem;
+		}
+
+		&--no-break {
+			white-space: nowrap;
+		}
+	}
+
+	&__medium-title {
+		font-size: var(--title-normal);
+	}
+}
+
+.cards {
+	position: relative;
+	inset-inline: 0;
+	margin: auto;
+	margin-block-start: 90vh;
+	z-index: 1;
+
+	height: 100vh;
+	max-width: 120rem;
+	background-color: rgba(var(--clr-forward), 1);
+	box-shadow: 20px 20px 20px 15px rgba(var(--clr-forward), 1), -20px 20px 20px 15px rgba(var(--clr-forward), 1);
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		inset-block-start: -2rem;
+
+		// background-image: url("../images/transitionThree.svg");
+		background-repeat: no-repeat;
+		width: 100%;
+		max-width: 100vw;
+		height: 4rem;
+		z-index: 1;
+		overflow: hidden;
+	}
+
+	&__title {
+		position: absolute;
+		inset-block-start: 5%;
+		inset-inline-start: 5%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.5rem;
+		margin: 0;
+		max-width: 12rem;
+
+		font-size: var(--title-medium);
+		font-weight: 400;
+
+		span:first-child {
+			// margin-inline-end: 8rem;
+			position: relative;
+			right: 4rem;
+		}
+	}
+
+	&__container {
+		position: absolute;
+		inset-block: 5%;
+		inset-inline: 5%;
+	}
+}
+
+.project {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.5rem;
+
+	&__content {
+		animation: floatPage 10000ms ease-in-out infinite;
+	}
+
+	&__information {
+		p {
+			font-weight: 100;
+			margin: 0;
+
+			&:first-child {
+				width: 110%;
+			}
+
+			&:last-child {
+				font-size: 0.75rem;
+			}
+		}
+		strong {
+			font-weight: 400;
+		}
+		a {
+			font-style: italic;
+			text-decoration: underline;
+		}
+	}
+
+	&:first-child &__information {
+		margin-block-start: 10rem;
+	}
+}
+
+$breakpoint-tablet: 730px;
+@media screen and (max-width: $breakpoint-tablet) {
+	.cards {
+		&__title {
+			inset-inline-start: 7%;
+		}
+	}
+	.project {
+		grid-template-columns: 1fr;
+		gap: 3rem;
+
+		&__information p {
+			width: 100% !important;
+		}
+	}
+}
+@keyframes floatPage {
+	50% {
+		transform: translateY(1.3rem);
+	}
+}

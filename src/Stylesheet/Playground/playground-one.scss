@@ -1,0 +1,338 @@
+.play-one {
+	$shadow-position: 4px;
+
+	--strong: #fff;
+	--background: #f0f0fa;
+	--border: #f3f2f9;
+	--shadow: #dbdaea;
+	--text: #9896ab;
+	--ok: #28e39f;
+
+	display: flex;
+	justify-content: space-between;
+
+	.white-shadow {
+		-webkit-touch-callout: none; /* IOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Old versions of Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently
+                supported by Chrome, Edge, Opera and Firefox */
+
+		border: 2px solid var(--border);
+		border-radius: 32px;
+
+		box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 var(--shadow),
+			#{-$shadow-position} #{-$shadow-position} #{$shadow-position * 2} 0 var(--strong);
+
+		background-color: var(--background);
+	}
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding: 3rem;
+
+		width: 100%;
+		border-radius: 8px;
+
+		&--flex {
+			display: flex;
+			gap: inherit;
+		}
+	}
+
+	.light-container {
+		$gap-elements: 2rem;
+		background-color: var(--background);
+
+		&__toggle-container {
+			display: grid;
+			gap: $gap-elements;
+
+			.toggle {
+				$before-size: 1.75rem;
+
+				display: block;
+				position: relative;
+				height: 2.5rem;
+				width: 5rem;
+
+				&__appearance {
+					position: absolute;
+					inset: 0;
+
+					display: flex;
+					align-items: center;
+					justify-content: space-around;
+
+					overflow: hidden;
+
+					transition: background-color 200ms ease-out, border 350ms ease-out;
+
+					/* On Off span */
+					& > span {
+						position: absolute;
+						inset: 0;
+						display: flex;
+						align-items: center;
+						justify-content: space-around;
+						font-weight: 400;
+						font-size: 0.875rem;
+						color: var(--text);
+						z-index: 0;
+						transition: color 200ms ease-out, background-color 200ms ease-in-out;
+						background-color: var(--background);
+
+						&::before {
+							content: "On";
+							left: 8px;
+						}
+
+						&::after {
+							content: "Off";
+							left: calc(100%);
+						}
+					}
+
+					&::before {
+						$shadow-position-before: 1px;
+
+						content: "";
+						position: absolute;
+						inset-block: 3px;
+						left: 0;
+						transform: translateX(4px);
+						border-radius: 50%;
+						width: $before-size;
+						height: $before-size;
+						background-color: var(--strong);
+
+						box-shadow: $shadow-position-before $shadow-position-before 2px 0 var(--shadow);
+
+						transition: inset-inline 200ms ease-in;
+						z-index: 1;
+					}
+				}
+
+				&__checkbox {
+					position: absolute;
+					inset: 0;
+					width: 100%;
+					height: 100%;
+					margin: 0;
+					opacity: 0;
+					z-index: 1;
+
+					&:checked + .toggle__appearance {
+						background-color: var(--ok);
+						border: 2px solid var(--ok);
+
+						&::before {
+							left: calc(100% - #{$before-size} - 8px);
+						}
+
+						& > span {
+							background-color: var(--ok);
+							color: var(--strong);
+						}
+					}
+				}
+			}
+		}
+
+		&__select-container {
+			display: grid;
+			gap: $gap-elements;
+
+			.select-cover {
+				/* Select variables */
+				$padding-for-arrow: 3rem;
+
+				position: relative;
+				width: fit-content;
+				height: fit-content;
+
+				z-index: 3;
+
+				&__select {
+					height: 2.5rem;
+					padding-inline: 1rem;
+					padding-inline-end: $padding-for-arrow;
+					color: var(--text);
+					opacity: 0;
+
+					option {
+					}
+				}
+
+				&__false-select {
+					position: absolute;
+					inset: 0;
+
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					flex-direction: column;
+					padding-inline-end: $padding-for-arrow;
+
+					font-weight: 400;
+					font-size: 0.875rem;
+					color: var(--text);
+
+					svg {
+						position: absolute;
+						inset-block: 0;
+						right: 0.875rem;
+						width: 1rem;
+						height: auto;
+						margin: auto;
+
+						path {
+							stroke: var(--text);
+						}
+					}
+				}
+
+				&__false-options {
+					position: absolute;
+					top: 100%;
+					inset-inline: 0;
+
+					margin: 0;
+					padding: 0;
+					border-start-start-radius: 0;
+					border-start-end-radius: 0;
+
+					box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 var(--shadow);
+					background-color: var(--background);
+
+					z-index: 0;
+				}
+			}
+		}
+
+		&__circular-button-container {
+			display: flex;
+			justify-content: space-between;
+			gap: $gap-elements;
+
+			.btm {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				padding: 0;
+
+				$size-btm: 2.75rem;
+				width: $size-btm;
+				height: $size-btm;
+
+				svg {
+					$size-svg: 1rem;
+					width: $size-svg;
+					height: $size-svg;
+
+					fill: var(--text);
+				}
+			}
+		}
+
+		&__link-button {
+			display: grid;
+			gap: $gap-elements;
+
+			.link {
+				width: 8rem;
+				height: 2.5rem;
+				color: var(--text);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1rem;
+			}
+		}
+	}
+
+	.dark-container {
+		$deg-ctnr: 135deg;
+
+		position: relative;
+		clip-path: circle(5% at 5% 10%);
+
+		width: 100%;
+
+		background-image: linear-gradient(
+			$deg-ctnr,
+			rgba(var(--clr-forward), 1) 45%,
+			rgba(var(--clr-main), 1) 45% //
+		);
+
+		transition: clip-path ease-in-out 500ms;
+
+		&.spin {
+			animation: background-rotate ease-in-out 2000ms infinite;
+		}
+
+		.clip-path {
+			:is(h1, p, ::before, .clip-path__btm) {
+				mix-blend-mode: difference;
+				color: rgba(var(--clr-main), 1);
+
+				font-weight: 700;
+			}
+
+			&__ctnr-btm {
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			&__btm {
+				background-color: rgba(var(--clr-forward), 1);
+				padding: 1rem;
+				border-radius: 0.5rem;
+			}
+		}
+
+		// Bed performance
+		@keyframes background-rotate {
+			@for $i from 0 through 100 {
+				#{$i * 1%} {
+					background-image: linear-gradient(
+						#{$i * 3.6deg + $deg-ctnr},
+						rgba(var(--clr-forward), 1) 50%,
+						rgba(var(--clr-main), 1)
+							50%
+							//
+					);
+				}
+			}
+		}
+
+		&::before {
+			content: "i";
+			position: absolute;
+			top: 2rem;
+			left: 2rem;
+
+			mix-blend-mode: difference;
+			color: rgba(var(--clr-main), 1);
+
+			font-weight: 700;
+			font-size: 1.5rem;
+
+			transition: opacity ease-in-out 200ms;
+		}
+
+		&:hover {
+			clip-path: circle(75%);
+			&::before {
+				opacity: 0;
+			}
+		}
+	}
+}
