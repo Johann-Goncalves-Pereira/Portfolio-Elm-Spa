@@ -29,6 +29,7 @@ module.exports = merge(common, {
           // fallback to style-loader in development
           MiniCssExtractPlugin.loader,
           "css-loader",
+          "postcss-loader",
           "sass-loader",
         ],
       },
