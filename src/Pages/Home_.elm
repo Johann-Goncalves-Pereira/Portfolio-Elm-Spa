@@ -2,10 +2,11 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, br, div, h1, h2, h3, main_, p, section, span, strong, text)
+import Html exposing (Html, a, article, br, div, h1, h2, h3, main_, p, section, span, strong, text)
 import Html.Attributes exposing (attribute, class, id, style)
 import Html.Events exposing (onClick)
 import Page exposing (Page)
+import Preview.Kelpie.Kelpie as Kelpie exposing (view)
 import Request exposing (Request)
 import Shared
 import UI
@@ -27,12 +28,14 @@ page shared req =
 
 type alias Model =
     { route : Route
+    , scrollSample : Bool
     }
 
 
 init : Model
 init =
     { route = Route.Home_
+    , scrollSample = False
     }
 
 
@@ -41,26 +44,27 @@ init =
 
 
 type Msg
-    = ReplaceMe
+    = ShowSample
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        ReplaceMe ->
-            model
+        ShowSample ->
+            { model | scrollSample = not model.scrollSample }
 
 
 
 -- VIEW
 
 
-view : Model -> View msg
+view : Model -> View Msg
 view model =
     { title = "Johann - Home"
     , body =
         UI.layout model.route
             [ viewMainContent
+            , viewOtherProjects model
             ]
     }
 
@@ -69,9 +73,9 @@ view model =
 -- Main Content
 
 
-viewMainContent : Html msg
+viewMainContent : Html Msg
 viewMainContent =
-    main_ [ class "main-home" ]
+    article [ class "main-home" ]
         [ div [ class "main-home__container", attribute "transitionOne" "" ]
             [ h1 [ class "main-home__medium-title" ]
                 [ text "Johann Gonçalves Pereira"
@@ -92,7 +96,7 @@ viewMainContent =
 -- Projects Content
 
 
-viewOtherProjects : Model -> Html msg
+viewOtherProjects : Model -> Html Msg
 viewOtherProjects model =
     div [ class "cards" ]
         [ h3
@@ -100,11 +104,8 @@ viewOtherProjects model =
             [ span [] [ text "Other" ]
             , span [] [ text "Projects" ]
             ]
-        , div [ class "cards__container" ] []
-
-        {- <|
-           viewProjects model
-        -}
+        , div [ class "cards__container" ] <|
+            viewProjects model
         ]
 
 
@@ -118,29 +119,28 @@ viewProjects model =
     ]
 
 
-boldText : String -> Html msg
+boldText : String -> Html Msg
 boldText word =
     strong [] [ text <| " " ++ word ]
 
 
 kelpie : Model -> List (Html Msg)
 kelpie model =
-    {- let
-           isOverflowHidden =
-               if model.scrollSample == True then
-                   style "overflow" "auto"
+    let
+        isOverflowHidden =
+            if model.scrollSample == True then
+                style "overflow" "auto"
 
-               else
-                   style "overflow" "hidden"
+            else
+                style "overflow" "hidden"
 
-           isSpanDisplayed =
-               if model.scrollSample == True then
-                   style "transform" "scale(0)"
+        isSpanDisplayed =
+            if model.scrollSample == True then
+                style "transform" "scale(0)"
 
-               else
-                   style "transform" "scale(1)"
-       in
-    -}
+            else
+                style "transform" "scale(1)"
+    in
     [ section [ class "project__information" ]
         [ p []
             [ boldText "Kelpie"
@@ -167,25 +167,22 @@ kelpie model =
             ]
         ]
     , section [ class "project__content" ]
-        [ div
-            [ id "kelpie-container"
-
-            -- , isOverflowHidden
-            ]
-            [ span
-                [ class "project-sample-block"
-
-                -- , onClick ShowSample
-                -- , isSpanDisplayed
-                ]
-                [ span []
-                    [ text "click to see the sample"
+        [ List.concat
+            [ [ span
+                    [ class "project-sample-block"
+                    , onClick ShowSample
+                    , isSpanDisplayed
                     ]
-                ]
-
-            -- , kelpieHeaderPage
-            -- , kelpieMainContent
-            -- , viewKelpiePictures
+                    [ span []
+                        [ text "click to see the sample"
+                        ]
+                    ]
+              ]
+            , Kelpie.view
             ]
+            |> div
+                [ id "kelpie-container"
+                , isOverflowHidden
+                ]
         ]
     ]

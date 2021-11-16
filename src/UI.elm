@@ -11,6 +11,12 @@ isRoute route compare =
         ( Route.Home_, Route.Home_ ) ->
             True
 
+        ( Route.Projects, Route.Projects ) ->
+            True
+
+        ( Route.Playground, Route.Playground ) ->
+            True
+
         _ ->
             False
 
@@ -36,6 +42,7 @@ layout route children =
             [ viewLink "Home" Route.Home_
             , nav [ class "main-header__nav--small" ]
                 [ viewLink "Projects" Route.Projects
+                , viewLink "Playground" Route.Playground
                 ]
             ]
         ]
