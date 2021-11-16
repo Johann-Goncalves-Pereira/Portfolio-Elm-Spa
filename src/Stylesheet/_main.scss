@@ -1,3 +1,5 @@
+@use "./abstracts/" as *;
+
 // Attribute order
 /* Content */
 /* Positioning */
@@ -7,24 +9,26 @@
 
 :root {
 	// Put your var Colors
-
-	--clr-background: 4, 0, 20;
 	// Output:  rgba(4, 0, 20, 1) hsl(252, 100%, 4%) #040014
-
-	--clr-forward: 34, 33, 37;
+	@include defineColorHSL(--clr-background, 252, 100%, 4%);
 	// Output: rgba(34, 33, 37, 1) hsl(255, 6%, 14%) #222125
-
-	--clr-hover: 153, 66, 0;
+	@include defineColorHSL(--clr-forward, 255, 6%, 14%);
 	// Output: rgba(153, 66, 0, 1) hsl(26, 100%, 30%) #994200
-
-	--clr-main: 255, 119, 0;
+	@include defineColorHSL(--clr-hover, 26, 100%, 30%);
 	// Output: rgba(255, 119, 0, 1) hsl(28, 100%, 50%) #ff7700
-
-	--clr-border: 255, 157, 0;
+	@include defineColorHSL(--clr-main, 28, 100%, 50%);
 	// Output: rgba(255, 157, 0, 1) hsl(37, 100%, 50%) #ff9d00
-
-	--clr-text: 249, 248, 255;
+	@include defineColorHSL(--clr-border, 37, 100%, 50%);
 	// output: rgb(249, 248, 255) hsl(249, 100%, 99%) #f9f8ff;
+	@include defineColorHSL(--clr-text, 249, 100%, 99%);
+
+	// @for $i from 0 to 100 {
+	// 	@if $i < 10 {
+	// 		--op-#{"0" + $i}: #{"0." + $i};
+	// 	} @else {
+	// 		--op-#{$i}: #{"0." + $i};
+	// 	}
+	// }
 
 	--title-big: clamp(3rem, 3.5vw + 1rem, 7rem);
 	--title-medium: clamp(2rem, 1.875vw + 1rem, 6rem);
@@ -37,15 +41,16 @@
 }
 
 * {
+	$scroll-size: 4px;
 	// Set default font and color.
 	font-family: "Rubik", sans-serif;
-	color: rgba(var(--clr-text), 1);
+	color: var(--clr-text);
 
 	// https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
 	// don't work at firefox
 	&::-webkit-scrollbar {
-		width: 4px;
-		height: 4px;
+		width: $scroll-size;
+		height: $scroll-size;
 		border-radius: 0.25rem;
 		background: transparent;
 	}
@@ -57,13 +62,15 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: rgba(var(--clr-main), 1);
+		background: var(--clr-main);
 		border-radius: 0.25rem;
 	}
 
 	&::selection {
-		background-color: rgba(var(--clr-main), 1);
+		background-color: var(--clr-main);
 	}
+
+	scrollbar-width: $scroll-size;
 }
 
 // Body have fit all space available.
@@ -81,7 +88,7 @@ body {
 	min-height: 100%;
 	margin: 0;
 
-	background-color: rgba(var(--clr-background), 1);
+	background-color: var(--clr-background);
 }
 
 // Reset Settings.
@@ -106,7 +113,7 @@ strong {
 }
 
 ::placeholder {
-	color: rgba(var(--clr-background), 1);
+	color: var(--clr-background);
 }
 :focus {
 	outline: 0;

@@ -1,3 +1,5 @@
+@use "../../abstracts/" as a;
+
 #kelpie-container {
 	///////////////////////////
 	--grey-900: #1c2021;
@@ -32,7 +34,7 @@
 	transform: perspective(1000px) rotateX(8deg) rotateY(-38deg) rotate(6deg);
 	overflow-y: auto;
 	overflow-x: hidden;
-	border: 0.25rem solid rgba(var(--clr-forward), 1);
+	border: 0.25rem solid var(--clr-forward);
 	border-radius: 0.5rem;
 	padding-block-end: 1rem;
 	margin-block-start: 3vw;
@@ -61,7 +63,7 @@
 		transform-origin: left;
 		transition: transform 500ms ease-in-out;
 
-		background-color: rgba(var(--clr-background), 0.75);
+		background-color: a.alpha(var(--clr-background), 0.75);
 
 		cursor: pointer;
 

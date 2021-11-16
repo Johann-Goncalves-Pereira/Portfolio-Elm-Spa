@@ -2,7 +2,7 @@ module Pages.Playground exposing (Model, Msg, page)
 
 import Gen.Params.Playground exposing (Params)
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, article, button, div, h1, input, label, li, main_, option, p, section, select, span, text, ul)
+import Html exposing (Html, a, article, br, button, div, h1, input, label, li, main_, option, p, pre, section, select, span, text, ul)
 import Html.Attributes exposing (attribute, checked, class, href, id, type_)
 import Html.Events exposing (onClick)
 import Page
@@ -85,9 +85,9 @@ viewMainContent =
 viewContainerOne : Model -> Html Msg
 viewContainerOne model =
     let
-        addSpin =
+        addAnimation =
             if model.isSpinning then
-                "spin"
+                "animate"
 
             else
                 ""
@@ -105,7 +105,7 @@ viewContainerOne model =
                 [ viewOneLinksButton
                 ]
             ]
-        , section [ class <| "dark-container play-one__container " ++ addSpin ]
+        , section [ class <| "dark-container play-one__container " ++ addAnimation ]
             [ viewOneClipPath
             ]
         ]
@@ -177,8 +177,20 @@ viewOneLinksButton =
 viewOneClipPath : Html Msg
 viewOneClipPath =
     div [ class "clip-path" ]
-        [ h1 [] [ text "Super Spin Clip-Path" ]
-        , p [] [ text "Press the button for a spin section" ]
+        [ h1 [] [ text "Super Clip-Path width animation" ]
+        , p []
+            [ text
+                """
+                Press the button for a animate the background,
+                this isn't something good form rendering and performance,
+                bud was fun to build.
+                """
+            , br [] []
+            , br [] []
+            , text """
+                The thing is, the text color change with background what I think is pretty cool.
+                """
+            ]
         , div [ class "clip-path__ctnr-btm" ]
             [ button
                 [ class "clip-path__btm"

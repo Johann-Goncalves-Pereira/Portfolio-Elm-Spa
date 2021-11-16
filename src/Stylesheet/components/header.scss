@@ -25,7 +25,7 @@
 		padding-block-start: 2rem;
 		margin: 0;
 
-		background-color: rgba(var(--clr-background), 1);
+		background-color: var(--clr-background);
 
 		font-size: var(--text-normal);
 		font-weight: 500;
@@ -52,7 +52,7 @@
 			transform: translateX(-50%) scale(0);
 			transform-origin: bottom;
 			border-radius: 50%;
-			background-color: rgba(var(--clr-main), 1);
+			background-color: var(--clr-main);
 			width: $before-size;
 			height: $before-size;
 			transition: transform $before-time $before-timing, opacity $before-time $before-timing;
@@ -74,7 +74,7 @@
 				transform: translateX(-50%) scale(1);
 				transform-origin: bottom;
 				border-radius: 50%;
-				background-color: rgba(var(--clr-main), 1);
+				background-color: var(--clr-main);
 				width: $before-size;
 				height: $before-size;
 				opacity: 1;
@@ -103,7 +103,7 @@
 			transition: transform 150ms ease-out;
 			transition-delay: 100ms;
 
-			background-color: rgba(var(--clr-forward), 1);
+			background-color: var(--clr-forward);
 
 			a {
 				$a-padding: 1rem;
@@ -115,7 +115,7 @@
 				transition: background-color 150ms ease-out;
 
 				&:hover {
-					background-color: rgba(var(--clr-hover), 1);
+					background-color: var(--clr-hover);
 				}
 			}
 		}
@@ -139,7 +139,7 @@
 			content: "\A";
 			border-style: solid;
 			border-width: $border-size $border-size $border-size 0;
-			border-color: transparent rgba(var(--clr-text), 1) transparent transparent;
+			border-color: transparent var(--clr-text) transparent transparent;
 			position: absolute;
 			top: 47%;
 			right: 7px;
