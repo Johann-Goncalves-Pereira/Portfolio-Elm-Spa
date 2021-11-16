@@ -1,9 +1,9 @@
 {
-  "name": "projects-boilerplate",
+  "name": "portfolio-johann",
   "version": "1.2.0",
   "main": "index.js",
-  "repository": "git@gitlab.ingress.materialize.pro:materialize/elm-boilerplate.git",
-  "author": "Douglas M. <douglasmassolari@hotmail.com>, Johann G. <johann.gon.pereira@gmail.com",
+  "repository": "https://github.com/Johann-Goncalves-Pereira/Portfolio-Elm-Spa/tree/master",
+  "author": "Johann G. <johann.gon.pereira@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.14.8",
