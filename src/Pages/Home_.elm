@@ -2,13 +2,14 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, article, br, div, h1, h2, h3, main_, p, section, span, strong, text)
-import Html.Attributes exposing (attribute, class, id, style)
+import Html exposing (Html, a, article, b, br, div, h1, h2, h3, img, main_, p, section, span, strong, text)
+import Html.Attributes exposing (attribute, class, id, src, style)
 import Html.Events exposing (onClick)
 import Page exposing (Page)
 import Preview.Kelpie.Kelpie as Kelpie exposing (view)
 import Request exposing (Request)
 import Shared
+import Svg.Base as MSvg
 import UI
 import View exposing (View)
 
@@ -116,6 +117,7 @@ viewProjects model =
             div [ class <| "project" ] funcContent
     in
     [ container <| kelpie model
+    , div [] <| blobsInfo model
     ]
 
 
@@ -184,5 +186,77 @@ kelpie model =
                 [ id "kelpie-container"
                 , isOverflowHidden
                 ]
+        ]
+    ]
+
+
+blobsInfo : Model -> List (Html Msg)
+blobsInfo model =
+    [ section [ class "blobs-info" ]
+        -- List.repeat 4 <|
+        [ div [ class "blobs-info__content" ]
+            [ MSvg.rocket <| Just "icon"
+            , div [ class "txt" ]
+                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                , p [ class "txt__text" ]
+                    [ text
+                        """
+                        The first thing that I usually do when starting a new project,
+                        It's talk with the design about what I need to do, if I need to 
+                        made the page based on a figma or framer pre build. 
+                        Maybe I need to need to make the design by myself.
+                        """
+                    ]
+                ]
+            , div [ class "number" ] [ b [] [ text "01" ] ]
+            ]
+        , div [ class "blobs-info__content" ]
+            [ MSvg.pen <| Just "icon"
+            , div [ class "txt" ]
+                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                , p [ class "txt__text" ]
+                    [ text
+                        """
+                        The first thing that I usually do when starting a new project,
+                        It's talk with the design about what I need to do, if I need to 
+                        made the page based on a figma or framer pre build. 
+                        Maybe I need to need to make the design by myself.
+                        """
+                    ]
+                ]
+            , div [ class "number" ] [ b [] [ text "02" ] ]
+            ]
+        , div [ class "blobs-info__content" ]
+            [ img [ class "icon", src "https://picsum.photos/300" ] []
+            , div [ class "txt" ]
+                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                , p [ class "txt__text" ]
+                    [ text
+                        """
+                        The first thing that I usually do when starting a new project,
+                        It's talk with the design about what I need to do, if I need to 
+                        made the page based on a figma or framer pre build. 
+                        Maybe I need to need to make the design by myself.
+                        """
+                    ]
+                ]
+            , div [ class "number" ] [ b [] [ text "03" ] ]
+            ]
+        , div [ class "blobs-info__content" ]
+            [ img [ class "icon", src "https://picsum.photos/300" ] []
+            , div [ class "txt" ]
+                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                , p [ class "txt__text" ]
+                    [ text
+                        """
+                        The first thing that I usually do when starting a new project,
+                        It's talk with the design about what I need to do, if I need to 
+                        made the page based on a figma or framer pre build. 
+                        Maybe I need to need to make the design by myself.
+                        """
+                    ]
+                ]
+            , div [ class "number" ] [ b [] [ text "04" ] ]
+            ]
         ]
     ]
