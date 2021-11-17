@@ -41,12 +41,13 @@
 
 .cards {
 	position: relative;
+
 	inset-inline: 0;
 	margin: auto;
 	margin-block-start: 90vh;
 	z-index: 1;
 
-	height: 100vh;
+	height: max-content;
 	max-width: 120rem;
 	background-color: var(--clr-forward);
 	box-shadow: 20px 20px 20px 15px var(--clr-forward), -20px 20px 20px 15px var(--clr-forward);
@@ -70,6 +71,7 @@
 		position: absolute;
 		inset-block-start: 5%;
 		inset-inline-start: 5%;
+
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -88,9 +90,7 @@
 	}
 
 	&__container {
-		position: absolute;
-		inset-block: 5%;
-		inset-inline: 5%;
+		padding: 5%;
 	}
 }
 
