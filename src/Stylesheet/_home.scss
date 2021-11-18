@@ -154,7 +154,7 @@
 
 		border-radius: 100vw;
 		padding: 2em 1em;
-		box-shadow: 8px 8px 32px -4px var(--clr-background);
+		box-shadow: var(--bs-blob-00, 0 0 0 0), var(--bs-blob-01, 0 0 0 0), 8px 8px 32px -4px var(--clr-background);
 
 		height: 32em;
 		width: 18em;
@@ -163,26 +163,20 @@
 
 		transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
 		&:hover {
-			box-shadow: 8px 8px 64px -4px var(--clr-background);
+			// box-shadow: 8px 8px 48px -4px var(--clr-background);
 			// background-color: a.alpha(var(--clr-background), 0.3);
 		}
 
-		--clr-tooltip-01: hsl(66, 100%, 50%), hsl(16, 100%, 50%);
-		--clr-tooltip-02: hsl(16, 100%, 50%), hsl(250, 100%, 50%);
-		--clr-tooltip-03: hsl(250, 100%, 50%), hsl(191, 100%, 50%);
-		--clr-tooltip-04: hsl(191, 100%, 50%), hsl(167, 100%, 50%);
+		$tltp-base-00: #e5ff00;
+		$tltp-base-01: #ff4400;
+		$tltp-base-02: #5900ff;
+		$tltp-base-03: #00d0ff;
+		$tltp-base-04: #00ffae;
 
-		@for $i from 1 to 5 {
-			&:nth-child(#{$i}) {
-				&::before {
-					background-image: linear-gradient(90deg, var(--clr-tooltip-#{"0" + $i}));
-				}
-				.number,
-				.number::before {
-					background-image: linear-gradient(45deg, var(--clr-tooltip-#{"0" + $i}));
-				}
-			}
-		}
+		--clr-tooltip-01: #{$tltp-base-00}, #{$tltp-base-01};
+		--clr-tooltip-02: #{$tltp-base-01}, #{$tltp-base-02};
+		--clr-tooltip-03: #{$tltp-base-02}, #{$tltp-base-03};
+		--clr-tooltip-04: #{$tltp-base-03}, #{$tltp-base-04};
 
 		&::before,
 		&::after {
@@ -202,16 +196,24 @@
 			background-color: var(--clr-forward);
 		}
 
-		&:nth-child(odd)::before {
-			clip-path: inset(0 0 50% 0);
+		@for $i from 1 to 5 {
+			&:nth-child(#{$i}) {
+				&::before {
+					background-image: linear-gradient(90deg, var(--clr-tooltip-#{"0" + $i}));
+				}
+				.number,
+				.number::before {
+					background-image: linear-gradient(45deg, var(--clr-tooltip-#{"0" + $i}));
+				}
+			}
 		}
+
+		$blur: 16px;
+		$offset: -8px;
 
 		&:nth-child(even) {
 			flex-direction: column-reverse;
 
-			&::before {
-				clip-path: inset(50% 0 0 0);
-			}
 			.number {
 				margin-bottom: auto;
 				margin-top: 0;
@@ -219,6 +221,8 @@
 		}
 
 		&:first-child {
+			--bs-blob-00: inset 5px 1px #{$blur} #{$offset} #{$tltp-base-00};
+			--bs-blob-01: inset -2px 8px #{$blur} #{$offset} #{$tltp-base-01};
 			&::before {
 				clip-path: polygon(100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%, 0 0);
 			}
@@ -227,8 +231,28 @@
 			}
 		}
 
-		&:last-child::before {
-			clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%, 50% 50%);
+		&:nth-child(2) {
+			--bs-blob-01: inset 4px -8px #{$blur} #{$offset} #{$tltp-base-01};
+			--bs-blob-00: inset -6px -8px #{$blur} #{$offset} #{$tltp-base-02};
+			&::before {
+				clip-path: inset(50% 0 0 0);
+			}
+		}
+
+		&:nth-child(3) {
+			--bs-blob-01: inset 6px 8px #{$blur} #{$offset} #{$tltp-base-02};
+			--bs-blob-00: inset -4px 8px #{$blur} #{$offset} #{$tltp-base-03};
+			&::before {
+				clip-path: inset(0 0 50% 0);
+			}
+		}
+
+		&:last-child {
+			--bs-blob-00: inset 3px -6px #{$blur} #{$offset} #{$tltp-base-03};
+			--bs-blob-01: inset -8px 2px #{$blur} #{$offset} #{$tltp-base-04};
+			&::before {
+				clip-path: polygon(50% 0, 100% 0, 100% 100%, 0 100%, 0 50%, 50% 50%);
+			}
 		}
 
 		.number {
@@ -245,6 +269,8 @@
 
 			width: $number-size;
 			height: $number-size;
+
+			user-select: none;
 
 			b {
 				font-size: 4em;
