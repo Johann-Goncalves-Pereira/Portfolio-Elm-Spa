@@ -204,55 +204,57 @@ blobsInfo model =
                         The first thing that I usually do when starting a new project,
                         It's talk with the design about what I need to do, if I need to 
                         made the page based on a figma or framer pre build. 
-                        Maybe I need to need to make the design by myself.
                         """
+                    , br [] []
+                    , br [] []
+                    , text "Maybe I need to need to make the design by myself."
                     ]
                 ]
             , div [ class "number" ] [ b [] [ text "01" ] ]
             ]
         , div [ class "blobs-info__content" ]
-            [ MSvg.pen <| Just "icon"
+            [ MSvg.code <| Just "icon"
             , div [ class "txt" ]
-                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                [ strong [ class "txt__title" ] [ text "Start to Code" ]
                 , p [ class "txt__text" ]
                     [ text
                         """
-                        The first thing that I usually do when starting a new project,
-                        It's talk with the design about what I need to do, if I need to 
-                        made the page based on a figma or framer pre build. 
-                        Maybe I need to need to make the design by myself.
+                        Then before making the design I start to code, if possible I
+                        like to use the tools that I'm used to.
                         """
+                    , br [] []
+                    , br [] []
+                    , text "Elm, Scss, Html, ReactNative"
                     ]
                 ]
             , div [ class "number" ] [ b [] [ text "02" ] ]
             ]
         , div [ class "blobs-info__content" ]
-            [ img [ class "icon", src "https://picsum.photos/300" ] []
+            [ MSvg.lineS <| Just "icon"
             , div [ class "txt" ]
-                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                [ strong [ class "txt__title" ] [ text "Bugs and updates" ]
                 , p [ class "txt__text" ]
                     [ text
                         """
-                        The first thing that I usually do when starting a new project,
-                        It's talk with the design about what I need to do, if I need to 
-                        made the page based on a figma or framer pre build. 
-                        Maybe I need to need to make the design by myself.
+                        You always need to improve something on the code,
+                        and fix some bugs.
                         """
+                    , br [] []
+                    , br [] []
+                    , text "And I can make this with a team or just by myself."
                     ]
                 ]
             , div [ class "number" ] [ b [] [ text "03" ] ]
             ]
         , div [ class "blobs-info__content" ]
-            [ img [ class "icon", src "https://picsum.photos/300" ] []
+            [ MSvg.infinite <| Just "icon"
             , div [ class "txt" ]
-                [ strong [ class "txt__title" ] [ text "Get the design" ]
+                [ strong [ class "txt__title" ] [ text "Never stops" ]
                 , p [ class "txt__text" ]
                     [ text
                         """
-                        The first thing that I usually do when starting a new project,
-                        It's talk with the design about what I need to do, if I need to 
-                        made the page based on a figma or framer pre build. 
-                        Maybe I need to need to make the design by myself.
+                        Software never stops, just keeps growing and getting more better.
+                        
                         """
                     ]
                 ]
