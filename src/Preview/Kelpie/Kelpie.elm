@@ -246,68 +246,28 @@ footerImage =
 viewKelpiePictures : Html msg
 viewKelpiePictures =
     div [ class "viewKelpiePictures" ]
-        [ div []
-            [ img
-                [ src <| getKelpiePicture 0
+        [ div [] <|
+            List.map
+                (\images ->
+                    img
+                        [ src images
+                        ]
+                        []
+                )
+                [ "https://picsum.photos/1560/1070"
+                , "https://picsum.photos/1024/1870"
+                , "https://picsum.photos/1245/1340"
                 ]
-                []
-            , img
-                [ src <| getKelpiePicture 1
+        , div [] <|
+            List.map
+                (\images ->
+                    img
+                        [ src images
+                        ]
+                        []
+                )
+                [ "https://picsum.photos/1340/1980"
+                , "https://picsum.photos/1130/1040"
+                , "https://picsum.photos/1200/1390"
                 ]
-                []
-            , img
-                [ src <| getKelpiePicture 2
-                ]
-                []
-            ]
-        , div []
-            [ img
-                [ src <| getKelpiePicture 3
-                ]
-                []
-            , img
-                [ src <| getKelpiePicture 4
-                ]
-                []
-            , img
-                [ src <| getKelpiePicture 5
-                ]
-                []
-            ]
         ]
-
-
-kelpiePictures : List String
-kelpiePictures =
-    [ "https://images.unsplash.com/"
-        ++ "photo-1628881910804-53cfebaf5a75?ixid="
-        ++ "MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib="
-        ++ "rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-    , "https://images.unsplash.com/"
-        ++ "photo-1580498137839-a3aa044dd1d4?ixlib="
-        ++ "rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto="
-        ++ "format&fit=crop&w=675&q=80"
-    , "https://images.unsplash.com/"
-        ++ "photo-1628626664260-314613531d26?ixid="
-        ++ "MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib="
-        ++ "rb-1.2.1&auto=format&fit=crop&w=1349&q=80"
-    , "https://images.unsplash.com/"
-        ++ "photo-1585569881280-a003419e4073?ixlib="
-        ++ "rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit="
-        ++ "crop&w=1355&q=80"
-    , "https://images.unsplash.com/"
-        ++ "photo-1628680816357-bedf9c480aa1?ixid="
-        ++ "MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib="
-        ++ "rb-1.2.1&auto=format&fit=crop&w=676&q=80"
-    , "https://images.unsplash.com/"
-        ++ "photo-1628845200647-059020cebf72?ixid="
-        ++ "MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib="
-        ++ "rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-    ]
-
-
-getKelpiePicture : Int -> String
-getKelpiePicture idx =
-    Array.fromList kelpiePictures
-        |> Array.get idx
-        |> Maybe.withDefault ""

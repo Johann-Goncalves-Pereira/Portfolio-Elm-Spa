@@ -161,12 +161,6 @@
 
 		background-color: var(--clr-background);
 
-		transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
-		&:hover {
-			// box-shadow: 8px 8px 48px -4px var(--clr-background);
-			// background-color: a.alpha(var(--clr-background), 0.3);
-		}
-
 		$tltp-base-00: #e5ff00;
 		$tltp-base-01: #ff4400;
 		$tltp-base-02: #5900ff;
@@ -272,6 +266,12 @@
 
 			user-select: none;
 
+			transition: transform 200ms ease-out;
+
+			&:hover {
+				transform: scale(1.2);
+			}
+
 			b {
 				font-size: 4em;
 			}
@@ -285,6 +285,7 @@
 				filter: blur(12px);
 			}
 		}
+
 		.icon {
 			$icon-size: 3em;
 			width: $icon-size;
