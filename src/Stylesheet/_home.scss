@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "./abstracts" as a;
+@use "./abstracts" as *;
 
 .main-home {
 	position: fixed;
@@ -103,7 +103,15 @@
 	gap: 1.5rem;
 
 	&__content {
-		animation: floatPage 10000ms ease-in-out infinite;
+		// animation: floatPage 10000ms ease-in-out infinite;
+		outline: 1px dashed alpha(var(--clr-main), 0.3);
+
+		height: 600px;
+		min-height: 600px;
+		max-height: 600px;
+		min-width: 600px;
+		max-width: 600px;
+		width: 600px;
 	}
 
 	&__information {

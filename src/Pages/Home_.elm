@@ -1,23 +1,38 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
+import Browser.Dom exposing (Viewport, getViewport)
+import Browser.Events as BrowserE
+import DOM exposing (offsetWidth, target)
+import Effect
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, article, b, br, div, h1, h2, h3, img, main_, p, section, span, strong, text)
+import Html exposing (Attribute, Html, a, article, b, br, div, h1, h2, h3, img, main_, p, section, span, strong, text)
 import Html.Attributes exposing (attribute, class, id, src, style)
-import Html.Events exposing (onClick)
+import Html.Events exposing (on, onClick)
+import Html.Events.Extra.Mouse as EMouse
+import Json.Decode as Decode exposing (Decoder)
 import Page exposing (Page)
 import Preview.Kelpie.Kelpie as Kelpie exposing (view)
 import Request exposing (Request)
-import Shared
+import Round
+import Shared exposing (subscriptions)
 import Svg.Base as MSvg
+import Task
 import UI
 import View exposing (View)
 
 
+type alias EventWithMovement =
+    { mouseEvent : EMouse.Event
+    , movement : ( Float, Float )
+    }
+
+
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
-    Page.sandbox
+    Page.element
         { init = init
+        , subscriptions = subWidthSize
         , update = update
         , view = view
         }
@@ -30,14 +45,20 @@ page shared req =
 type alias Model =
     { route : Route
     , scrollSample : Bool
+    , windowWidth : Int
+    , mousePosition : ( Float, Float )
     }
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    { route = Route.Home_
-    , scrollSample = False
-    }
+    ( { route = Route.Home_
+      , scrollSample = False
+      , windowWidth = 0
+      , mousePosition = ( 0, 0 )
+      }
+    , Task.perform GotViewPort getViewport
+    )
 
 
 
@@ -46,13 +67,76 @@ init =
 
 type Msg
     = ShowSample
+    | GotViewPort Viewport
+    | GotNewWidth Int
+    | MouseMovement ( Float, Float )
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShowSample ->
-            { model | scrollSample = not model.scrollSample }
+            ( { model | scrollSample = not model.scrollSample }, Cmd.none )
+
+        GotNewWidth screenSize ->
+            ( { model
+                | windowWidth =
+                    screenSize
+              }
+            , Cmd.none
+            )
+
+        GotViewPort viewport ->
+            ( { model
+                | windowWidth =
+                    truncate
+                        viewport.viewport.width
+              }
+            , Cmd.none
+            )
+
+        MouseMovement ( x, y ) ->
+            ( { model | mousePosition = ( x, y ) }, Cmd.none )
+
+
+decodeWithMovement : Decoder EventWithMovement
+decodeWithMovement =
+    Decode.map2 EventWithMovement
+        EMouse.eventDecoder
+        movementDecoder
+
+
+movementDecoder : Decoder ( Float, Float )
+movementDecoder =
+    Decode.map2 (\a b -> ( a, b ))
+        (Decode.field "offsetX" Decode.float)
+        (Decode.field "offsetY" Decode.float)
+
+
+onMove : (EventWithMovement -> msg) -> Html.Attribute msg
+onMove tag =
+    let
+        decoder =
+            decodeWithMovement
+                |> Decode.map tag
+                |> Decode.map options
+
+        options message =
+            { message = message
+            , stopPropagation = False
+            , preventDefault = True
+            }
+    in
+    Html.Events.custom "mousemove" decoder
+
+
+
+-- Subscription
+
+
+subWidthSize : model -> Sub Msg
+subWidthSize _ =
+    BrowserE.onResize (\w _ -> GotNewWidth w)
 
 
 
@@ -105,9 +189,77 @@ viewOtherProjects model =
             [ span [] [ text "Other" ]
             , span [] [ text "Projects" ]
             ]
-        , div [ class "cards__container" ] <|
+        , div
+            [ class "cards__container"
+            ]
+          <|
             viewProjects model
         ]
+
+
+coordinatesVariables : Model -> Html.Attribute Msg
+coordinatesVariables model =
+    let
+        roundAxes : Float -> String
+        roundAxes axes =
+            Round.round 2 axes
+
+        mX : Float
+        mX =
+            Tuple.first model.mousePosition
+
+        -- mY : Float
+        -- mY =
+        --     Tuple.second model.mousePosition
+        sizeContainer : Float -> Float
+        sizeContainer axes =
+            axes * 100 / 500
+
+        degCalc : Float -> Float
+        degCalc axes =
+            sizeContainer axes * axes / 360
+
+        -- 500 - 100
+        -- 0 - 0
+        --
+        -- 100 - -10
+        -- 0 -
+        --? X = 500 -> 10deg
+        --? X = 250 -> 0deg
+        --? X = 0 -> -10deg
+        --
+        --? Y = 500 -> -10deg
+        --? Y = 250 -> 0deg
+        --? Y = 0 -> 10deg
+        invertX : Float
+        invertX =
+            degCalc mX
+
+        -- if mX > 250 then
+        -- sizeContainer mX
+        -- else
+        -- invertY : Float
+        -- invertY =
+        --     if mY <= 330 then
+        --         sizeContainer mY
+        --     else
+        --         sizeContainer mY * -1
+    in
+    "--x:"
+        ++ roundAxes mX
+        ++ ";--y:"
+        -- ++ roundAxes mY
+        ++ ";--ctnr-x:"
+        ++ roundAxes invertX
+        ++ "deg;--ctnr-y:"
+        -- ++ roundAxes invertY
+        ++ "deg;"
+        |> attribute "style"
+
+
+getWidthElement : Html.Attribute Float
+getWidthElement =
+    on "click" (target offsetWidth)
 
 
 viewProjects : Model -> List (Html Msg)
@@ -168,7 +320,11 @@ kelpie model =
             , text ". It's just a personal site not a comercial one."
             ]
         ]
-    , section [ class "project__content" ]
+    , section
+        [ class "project__content"
+        , onMove (.movement >> MouseMovement)
+        , coordinatesVariables model
+        ]
         [ List.concat
             [ [ span
                     [ class "project-sample-block"
