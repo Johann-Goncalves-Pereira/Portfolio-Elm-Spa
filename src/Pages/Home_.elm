@@ -1,6 +1,6 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
-import Browser.Dom exposing (Viewport, getViewport)
+import Browser.Dom exposing (Viewport, getViewport, getViewportOf)
 import Browser.Events as BrowserE
 import DOM exposing (offsetWidth, target)
 import Effect
@@ -32,7 +32,7 @@ page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
     Page.element
         { init = init
-        , subscriptions = subWidthSize
+        , subscriptions = subscriptionSize
         , update = update
         , view = view
         }
@@ -45,7 +45,7 @@ page shared req =
 type alias Model =
     { route : Route
     , scrollSample : Bool
-    , windowWidth : Int
+    , sectionSize : ( Int, Int )
     , mousePosition : ( Float, Float )
     }
 
@@ -54,9 +54,10 @@ init : ( Model, Cmd Msg )
 init =
     ( { route = Route.Home_
       , scrollSample = False
-      , windowWidth = 0
+      , sectionSize = ( 0, 0 )
       , mousePosition = ( 0, 0 )
       }
+      -- , Cmd.none
     , Task.perform GotViewPort getViewport
     )
 
@@ -68,7 +69,7 @@ init =
 type Msg
     = ShowSample
     | GotViewPort Viewport
-    | GotNewWidth Int
+    | GotNewSize ( Int, Int )
     | MouseMovement ( Float, Float )
 
 
@@ -78,19 +79,24 @@ update msg model =
         ShowSample ->
             ( { model | scrollSample = not model.scrollSample }, Cmd.none )
 
-        GotNewWidth screenSize ->
+        GotNewSize sSize ->
             ( { model
-                | windowWidth =
-                    screenSize
+                | sectionSize =
+                    sSize
               }
             , Cmd.none
             )
 
         GotViewPort viewport ->
+            let
+                sizeWidth =
+                    truncate viewport.viewport.width
+
+                sizeHeight =
+                    truncate viewport.viewport.height
+            in
             ( { model
-                | windowWidth =
-                    truncate
-                        viewport.viewport.width
+                | sectionSize = ( sizeWidth, sizeHeight )
               }
             , Cmd.none
             )
@@ -134,9 +140,9 @@ onMove tag =
 -- Subscription
 
 
-subWidthSize : model -> Sub Msg
-subWidthSize _ =
-    BrowserE.onResize (\w _ -> GotNewWidth w)
+subscriptionSize : Model -> Sub Msg
+subscriptionSize _ =
+    BrowserE.onResize (\w h -> GotNewSize ( w, h ))
 
 
 
@@ -197,62 +203,92 @@ viewOtherProjects model =
         ]
 
 
+calcDeg : Model -> ( Float, Float )
+calcDeg model =
+    let
+        windowSize : Float
+        windowSize =
+            toFloat <| Tuple.first model.sectionSize
+
+        size : Float
+        size =
+            875 * windowSize / 1925
+
+        -- 852 = 1925
+        -- x = 730
+        width : Float
+        width =
+            size / 2
+
+        height : Float
+        height =
+            45 * 16 / 2
+
+        mouseX =
+            Tuple.first model.mousePosition
+
+        mouseY =
+            Tuple.second model.mousePosition
+
+        correctMousePositionX : Float
+        correctMousePositionX =
+            if mouseX < 0 then
+                0
+
+            else if mouseX > size then
+                size
+
+            else
+                mouseX
+
+        correctMousePositionY : Float
+        correctMousePositionY =
+            if mouseY < 0 then
+                0
+
+            else if mouseY > size then
+                size
+
+            else
+                mouseY
+
+        posX : Float
+        posX =
+            correctMousePositionX - width
+
+        posY : Float
+        posY =
+            (correctMousePositionY - height) * -1
+
+        depthX : Float
+        depthX =
+            posX * 10 / 250
+
+        depthY : Float
+        depthY =
+            posY * 10 / 250
+
+        --! How to debug in elm
+        -- _ =
+        --     Debug.log "Depth" ( depthX, depthY )
+    in
+    if posX * posY < 0 then
+        ( depthX * -1, depthY * -1 )
+
+    else
+        ( depthX, depthY )
+
+
 coordinatesVariables : Model -> Html.Attribute Msg
 coordinatesVariables model =
     let
-        roundAxes : Float -> String
-        roundAxes axes =
-            Round.round 2 axes
-
-        mX : Float
-        mX =
-            Tuple.first model.mousePosition
-
-        -- mY : Float
-        -- mY =
-        --     Tuple.second model.mousePosition
-        sizeContainer : Float -> Float
-        sizeContainer axes =
-            axes * 100 / 500
-
-        degCalc : Float -> Float
-        degCalc axes =
-            sizeContainer axes * axes / 360
-
-        -- 500 - 100
-        -- 0 - 0
-        --
-        -- 100 - -10
-        -- 0 -
-        --? X = 500 -> 10deg
-        --? X = 250 -> 0deg
-        --? X = 0 -> -10deg
-        --
-        --? Y = 500 -> -10deg
-        --? Y = 250 -> 0deg
-        --? Y = 0 -> 10deg
-        invertX : Float
-        invertX =
-            degCalc mX
-
-        -- if mX > 250 then
-        -- sizeContainer mX
-        -- else
-        -- invertY : Float
-        -- invertY =
-        --     if mY <= 330 then
-        --         sizeContainer mY
-        --     else
-        --         sizeContainer mY * -1
+        ( x, y ) =
+            calcDeg model
     in
-    "--x:"
-        ++ roundAxes mX
-        ++ ";--y:"
-        -- ++ roundAxes mY
-        ++ ";--ctnr-x:"
-        ++ roundAxes invertX
+    "--ctnr-x:"
+        ++ Round.round 3 x
         ++ "deg;--ctnr-y:"
-        -- ++ roundAxes invertY
+        ++ Round.round 3 y
         ++ "deg;"
         |> attribute "style"
 
