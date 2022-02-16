@@ -8,6 +8,7 @@ import Html.Events exposing (onClick)
 import Page
 import Request
 import Shared
+import Svg.Logo as SvgL
 import UI
 import View exposing (View)
 
@@ -158,20 +159,28 @@ viewOneLightSelect =
 
 viewOneCircularButton : Html Msg
 viewOneCircularButton =
-    button [ class "white-shadow btm" ]
-        [-- Svg.play
-        ]
-        |> List.repeat 4
-        |> div [ class "light-container__circular-button-container" ]
+    div [ class "light-container__circular-button-container" ] <|
+        List.map
+            (\icon ->
+                button
+                    [ class "white-shadow btm" ]
+                    [ icon
+                    ]
+            )
+            [ SvgL.youtube, SvgL.reddit, SvgL.discord, SvgL.twitter ]
 
 
 viewOneLinksButton : Html Msg
 viewOneLinksButton =
-    a [ class "white-shadow link", href "" ]
-        [ text "YouTube"
-        ]
-        |> List.repeat 2
-        |> div [ class "light-container__link-button" ]
+    div [ class "light-container__link-button" ] <|
+        List.map
+            (\( icon, str ) ->
+                a [ class "white-shadow link", href "" ]
+                    [ icon
+                    , text str
+                    ]
+            )
+            [ ( SvgL.youtube, "YouTube" ), ( SvgL.discord, "Discord" ) ]
 
 
 viewOneClipPath : Html Msg
