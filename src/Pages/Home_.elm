@@ -214,6 +214,8 @@ calcDeg model =
         size =
             875 * windowSize / 1925
 
+
+
         -- 852 = 1925
         -- x = 730
         width : Float
@@ -222,7 +224,7 @@ calcDeg model =
 
         height : Float
         height =
-            45 * 16 / 2
+            38 * 16 / 2
 
         mouseX =
             Tuple.first model.mousePosition
@@ -230,43 +232,35 @@ calcDeg model =
         mouseY =
             Tuple.second model.mousePosition
 
-        correctMousePositionX : Float
-        correctMousePositionX =
-            if mouseX < 0 then
-                0
-
-            else if mouseX > size then
-                size
-
-            else
-                mouseX
-
-        correctMousePositionY : Float
-        correctMousePositionY =
-            if mouseY < 0 then
-                0
-
-            else if mouseY > size then
-                size
-
-            else
-                mouseY
-
         posX : Float
         posX =
-            correctMousePositionX - width
+            mouseX - width
 
         posY : Float
         posY =
-            (correctMousePositionY - height) * -1
+            (mouseY - height) * -1
 
         depthX : Float
         depthX =
-            posX * 10 / 250
+            if posX * 10 / 250 < -10 then
+                -10
+
+            else if posX * 10 / 250 > 10 then
+                10
+
+            else
+                posX * 10 / 250
 
         depthY : Float
         depthY =
-            posY * 10 / 250
+            if posY * 10 / 250 < -10 then
+                -10
+
+            else if posY * 10 / 250 > 10 then
+                10
+
+            else
+                posY * 10 / 250
 
         --! How to debug in elm
         -- _ =
@@ -279,18 +273,21 @@ calcDeg model =
         ( depthX, depthY )
 
 
-coordinatesVariables : Model -> Html.Attribute Msg
-coordinatesVariables model =
+transformCard : Model -> Html.Attribute Msg
+transformCard model =
     let
         ( x, y ) =
             calcDeg model
+
+        localRound z =
+            Round.round 3 z
     in
-    "--ctnr-x:"
-        ++ Round.round 3 x
-        ++ "deg;--ctnr-y:"
-        ++ Round.round 3 y
-        ++ "deg;"
-        |> attribute "style"
+    "perspective(1000px) rotateX("
+        ++ localRound x
+        ++ "deg) rotateY("
+        ++ localRound y
+        ++ "deg) rotate(0deg)"
+        |> style "transform"
 
 
 getWidthElement : Html.Attribute Float
@@ -358,8 +355,8 @@ kelpie model =
         ]
     , section
         [ class "project__content"
-        , onMove (.movement >> MouseMovement)
-        , coordinatesVariables model
+
+        -- , onMove (.movement >> MouseMovement)
         ]
         [ List.concat
             [ [ span
@@ -377,6 +374,8 @@ kelpie model =
             |> div
                 [ id "kelpie-container"
                 , isOverflowHidden
+                , transformCard model
+                , onMove (.movement >> MouseMovement)
                 ]
         ]
     ]
