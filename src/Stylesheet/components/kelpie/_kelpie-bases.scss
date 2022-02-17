@@ -30,13 +30,11 @@
 	}
 
 	position: relative;
-	// -webkit-transform: perspective(1000px) rotateX(8deg) rotateY(-38deg) rotate(6deg);
-	// transform: perspective(1000px) rotateX(8deg) rotateY(-38deg) rotate(6deg);
 	// ? the x and y are inverted because make sense
-	transform: perspective(1000px) rotateX(var(--ctnr-x, 0deg)) rotateY(var(--ctnr-y, 0deg)) rotate(0deg);
+	// transform: perspective(1000px) rotateX(var(--ctnr-x, 0deg)) rotateY(var(--ctnr-y, 0deg)) rotate(0deg);
 	transition: transform 1000ms ease-out;
 
-	// outline: 1px solid var(--clr-main);
+	outline: 1px solid var(--clr-main);
 
 	overflow-y: auto;
 	overflow-x: hidden;
