@@ -5,6 +5,12 @@
   "repository": "https://github.com/Johann-Goncalves-Pereira/Portfolio-Elm-Spa/tree/master",
   "author": "Johann G. <johann.gon.pereira@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "install-packages": "yarn add @babel/core @types/node autoprefixer babel-loader clean-terminal-webpack-plugin clean-webpack-plugin css-loader doiuse elm elm-hot-webpack-loader elm-spa elm-webpack-loader html-webpack-plugin mini-css-extract-plugin  postcss postcss-cli postcss-loader sass sass-loader style-loader webpack webpack-cli webpack-dev-server webpack-merge && yarn add string-replace-loader -D"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@types/node": "^16.11.3",
@@ -30,11 +36,6 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2"
-  },
-  "scripts": {
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "build:dev": "webpack --config webpack.dev.js"
   },
   "dependencies": {
     "string-replace-loader": "^3.0.3"
