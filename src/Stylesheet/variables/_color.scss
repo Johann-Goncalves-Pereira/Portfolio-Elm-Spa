@@ -1,0 +1,40 @@
+@use "../abstracts/" as *;
+
+:root {
+	// Put your var Colors
+	// color: #040014;
+
+	//& clr -> Color
+	// :: s -> surface
+	// :: b -> Brand
+	// :: t -> Text
+
+	@include defineColorHSL(--clr-s-0, 252, 100%, 4%);
+	@include defineColorHSL(--clr-s-1, 255, 6%, 14%);
+	@include defineColorHSL(--clr-b-0, 28, 100%, 50%);
+	@include defineColorHSL(--clr-b-1, 26, 100%, 30%);
+	@include defineColorHSL(--clr-b-2, 37, 100%, 50%);
+	@include defineColorHSL(--clr-t, 249, 100%, 99%);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		@include defineColorHSL(--clr-s-0, 0, 0%, 99%);
+		@include defineColorHSL(--clr-s-1, 0, 0%, 85%);
+		@include defineColorHSL(--clr-b-0, 37, 100%, 50%);
+		@include defineColorHSL(--clr-b-1, 26, 100%, 30%);
+		@include defineColorHSL(--clr-b-2, 28, 100%, 50%);
+		@include defineColorHSL(--clr-t, 252, 100%, 4%);
+	}
+}
+
+.false-class------IDE {
+	--clr-hover: #994200;
+	--clr-main: hsl(28, 100%, 50%);
+	--clr-border: hsl(37, 100%, 50%);
+	--clr-text: hsl(26, 100%, 50%);
+	--clr-s-: hsl(0, 0%, 85%);
+	--fs-: 00;
+	--fsf-: 00;
+	--fw-: 00;
+}
