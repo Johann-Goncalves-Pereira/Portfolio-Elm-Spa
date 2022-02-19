@@ -1,4 +1,4 @@
-:root {
+:where(html) {
 	@for $i from 1 through 20 {
 		//: font-size
 		--fs-#{$i}: #{0.25em * $i};
