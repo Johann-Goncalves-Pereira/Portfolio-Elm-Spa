@@ -25,7 +25,7 @@
 	}
 
 	&__big-title {
-		font-size: var(--title-big);
+		font-size: var(--fsf-9);
 
 		&:last-child {
 			position: relative;
@@ -38,7 +38,7 @@
 	}
 
 	&__medium-title {
-		font-size: var(--title-normal);
+		font-size: var(--fsf-5);
 	}
 }
 
@@ -52,8 +52,8 @@
 
 	height: max-content;
 	max-width: 120rem;
-	background-color: var(--clr-forward);
-	box-shadow: 20px 20px 20px 15px var(--clr-forward), -20px 20px 20px 15px var(--clr-forward);
+	background-color: var(--clr-s-1);
+	box-shadow: 20px 20px 20px 15px var(--clr-s-1), -20px 20px 20px 15px var(--clr-s-1);
 
 	/* 	&::before {
 		content: "";
@@ -82,7 +82,7 @@
 		margin: 0;
 		max-width: 12rem;
 
-		font-size: var(--title-medium);
+		font-size: var(--fsf-7);
 		font-weight: 400;
 
 		span:first-child {
@@ -104,7 +104,7 @@
 
 	&__content {
 		animation: floatPage 10000ms ease-in-out infinite;
-		// outline: 1px dashed alpha(var(--clr-main), 0.3);
+		// outline: 1px dashed alpha(var(--clr-b-0), 0.3);
 
 		// height: 500px;
 		// min-height: 500px;
@@ -121,12 +121,15 @@
 			font-weight: 100;
 			margin: 0;
 
+			letter-spacing: 0.1em;
+
 			&:first-child {
 				// width: 110%;
 			}
 
 			&:last-child {
-				font-size: 0.75rem;
+				font-size: var(--fs-3);
+				// font-size: calc(var(--fs-4) / 1.25);
 			}
 		}
 		strong {
@@ -164,12 +167,12 @@
 
 		border-radius: 100vw;
 		padding: 2em 1em;
-		box-shadow: var(--bs-blob-00, 0 0 0 0), var(--bs-blob-01, 0 0 0 0), 8px 8px 32px -4px var(--clr-background);
+		box-shadow: var(--bs-blob-00, 0 0 0 0), var(--bs-blob-01, 0 0 0 0), 8px 8px 32px -4px var(--clr-s-0);
 
 		height: 32em;
 		width: 18em;
 
-		background-color: var(--clr-background);
+		background-color: var(--clr-s-0);
 
 		$tltp-base-00: #e5ff00;
 		$tltp-base-01: #ff4400;
@@ -197,7 +200,7 @@
 		&::after {
 			inset: -#{math.div($gap, 2.35)};
 			z-index: -1;
-			background-color: var(--clr-forward);
+			background-color: var(--clr-s-1);
 		}
 
 		@for $i from 1 to 5 {
@@ -283,7 +286,7 @@
 			}
 
 			b {
-				font-size: 4em;
+				font-size: var(--fs-15);
 			}
 
 			&::before {
@@ -309,11 +312,11 @@
 
 			&__title {
 				margin: 0;
-				font-size: 1.25em;
+				font-size: var(--fs-6);
 			}
 			&__text {
 				margin: 0%;
-				font-size: 0.875em;
+				font-size: var(--fs-4);
 				// font-weight: 300;
 			}
 		}

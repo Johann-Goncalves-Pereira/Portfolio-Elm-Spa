@@ -25,9 +25,9 @@
 		padding-block-start: 2rem;
 		margin: 0;
 
-		background-color: var(--clr-background);
+		background-color: var(--clr-s-0);
 
-		font-size: var(--text-normal);
+		font-size: calc(var(--fsf-4) / 1.25);
 		font-weight: 500;
 
 		cursor: pointer;
@@ -52,7 +52,7 @@
 			transform: translateX(-50%) scale(0);
 			transform-origin: bottom;
 			border-radius: 50%;
-			background-color: var(--clr-main);
+			background-color: var(--clr-b-0);
 			width: $before-size;
 			height: $before-size;
 			transition: transform $before-time $before-timing, opacity $before-time $before-timing;
@@ -74,7 +74,7 @@
 				transform: translateX(-50%) scale(1);
 				transform-origin: bottom;
 				border-radius: 50%;
-				background-color: var(--clr-main);
+				background-color: var(--clr-b-0);
 				width: $before-size;
 				height: $before-size;
 				opacity: 1;
@@ -103,7 +103,7 @@
 			transition: transform 150ms ease-out;
 			transition-delay: 100ms;
 
-			background-color: var(--clr-forward);
+			background-color: var(--clr-s-1);
 
 			a {
 				$a-padding: 1rem;

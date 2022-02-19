@@ -36,11 +36,11 @@
 	transform: perspective(1000px) rotateX(var(--ctnr-x, 0deg)) rotateY(var(--ctnr-y, 0deg)) rotate(0deg);
 	transition: transform 1000ms ease-out;
 
-	// outline: 1px solid var(--clr-main);
+	// outline: 1px solid var(--clr-b-0);
 
 	overflow-y: auto;
 	overflow-x: hidden;
-	border: 0.25rem solid var(--clr-forward);
+	border: 0.25rem solid var(--clr-s-1);
 	border-radius: 0.5rem;
 	padding-block-end: 1rem;
 	margin: auto !important;
@@ -75,7 +75,7 @@
 		transform-origin: left;
 		transition: transform 500ms ease-in-out;
 
-		background-color: a.alpha(var(--clr-background), 0.75);
+		background-color: a.alpha(var(--clr-s-0), 0.75);
 
 		cursor: pointer;
 

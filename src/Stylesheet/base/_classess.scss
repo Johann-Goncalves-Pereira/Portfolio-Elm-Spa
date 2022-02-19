@@ -18,7 +18,7 @@
 		}
 
 		&-thumb {
-			background: var(--clr-main);
+			background: var(--clr-b-0);
 			border-radius: 0.25rem;
 		}
 	}
@@ -26,6 +26,6 @@
 
 .selection {
 	&--none::selection {
-		// background-color: var(--clr-main);
+		// background-color: var(--clr-b-0);
 	}
 }
