@@ -1,4 +1,5 @@
-:where(html) {
+:root,
+#root {
 	@for $i from 1 through 20 {
 		//: font-size
 		--fs-#{$i}: #{0.25em * $i};
@@ -10,4 +11,10 @@
 	@for $i from 1 through 9 {
 		--fw-#{$i}: #{$i * 100};
 	}
+}
+
+.false-class------IDE {
+	--fsf-: 00;
+	--fs-: 00;
+	--fw-: 00;
 }
