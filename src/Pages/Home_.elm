@@ -13,6 +13,7 @@ import Html.Events.Extra.Mouse as EMouse
 import Json.Decode as Decode exposing (Decoder)
 import Page exposing (Page)
 import Preview.Kelpie.Kelpie as Kelpie exposing (view)
+import Random
 import Request exposing (Request)
 import Round
 import Shared exposing (subscriptions)
@@ -45,6 +46,7 @@ page shared req =
 type alias Model =
     { route : Route
     , scrollSample : Bool
+    , pageColor : Int
     , sectionSize : ( Int, Int )
     , mousePosition : ( Float, Float )
     }
@@ -54,11 +56,16 @@ init : ( Model, Cmd Msg )
 init =
     ( { route = Route.Home_
       , scrollSample = False
+      , pageColor = 0
       , sectionSize = ( 0, 0 )
       , mousePosition = ( 0, 0 )
       }
       -- , Cmd.none
-    , Task.perform GotViewPort getViewport
+    , Cmd.batch
+        [ Task.perform GotViewPort getViewport
+        , Random.int 1 360
+            |> Random.generate PeekColor
+        ]
     )
 
 
@@ -68,6 +75,8 @@ init =
 
 type Msg
     = ShowSample
+    | PeekRandomColor
+    | PeekColor Int
     | GotViewPort Viewport
     | GotNewSize ( Int, Int )
     | MouseMovement ( Float, Float )
@@ -78,6 +87,12 @@ update msg model =
     case msg of
         ShowSample ->
             ( { model | scrollSample = not model.scrollSample }, Cmd.none )
+
+        PeekRandomColor ->
+            ( model, Random.generate PeekColor (Random.int 1 360) )
+
+        PeekColor clr ->
+            ( { model | pageColor = clr }, Cmd.none )
 
         GotNewSize sSize ->
             ( { model
@@ -103,6 +118,10 @@ update msg model =
 
         MouseMovement ( x, y ) ->
             ( { model | mousePosition = ( x, y ) }, Cmd.none )
+
+
+
+-- Decoders
 
 
 decodeWithMovement : Decoder EventWithMovement
@@ -154,6 +173,7 @@ view model =
     { title = "Johann - Home"
     , body =
         UI.layout model.route
+            (Just model.pageColor)
             [ viewMainContent
             , viewOtherProjects model
             ]
@@ -305,8 +325,15 @@ viewProjects model =
             div [ class <| "project" ] funcContent
     in
     [ container <| kelpie model
+    , viewPageChosenColor model
     , div [] <| blobsInfo model
     ]
+
+
+viewPageChosenColor : Model -> Html Msg
+viewPageChosenColor model =
+    div [ class "chosen-color", onClick <| PeekRandomColor ]
+        [ MSvg.circleColors <| model.pageColor ]
 
 
 boldText : String -> Html Msg
