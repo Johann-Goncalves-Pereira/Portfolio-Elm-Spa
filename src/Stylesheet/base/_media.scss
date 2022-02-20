@@ -1,0 +1,44 @@
+:root,
+#root {
+	--xxs: 240px;
+	--xs: 360px;
+	--sm: 480px;
+	--md: 768px;
+	--lg: 1024px;
+	--xl: 1440px;
+	--xxl: 1920px;
+}
+
+// Change html size for Rem unit change.
+@media (max-width: var(--xl)) {
+	html {
+		font-size: 93.75%;
+	}
+}
+
+@media (max-width: var(--lg)) {
+	html {
+		font-size: 87.5%;
+	}
+}
+
+@media (max-width: var(--md)) {
+	html {
+		font-size: 75%;
+	}
+}
+
+//? https://web.dev/prefers-reduced-motion/#(bonus)-forcing-reduced-motion-on-all-websites
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		animation-delay: -1ms !important;
+		animation-duration: 1ms !important;
+		animation-iteration-count: 1 !important;
+		background-attachment: initial !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0s !important;
+		transition-delay: 0s !important;
+	}
+}

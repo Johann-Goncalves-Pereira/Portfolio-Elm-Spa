@@ -4,7 +4,7 @@ $breakpoint-tablet: 630px;
 
 #kelpie-container {
 	header {
-		background-color: var(--grey-800);
+		background-color: #242729;
 		.photo-ctr-rds {
 			position: relative;
 			$size-img: 1.75rem;
@@ -30,7 +30,7 @@ $breakpoint-tablet: 630px;
 		.separator {
 			z-index: 2;
 			padding: 0.5rem 0;
-			border-right: 1px solid var(--grey-400);
+			border-right: 1px solid #394041;
 		}
 
 		.header-objects {
@@ -63,7 +63,7 @@ $breakpoint-tablet: 630px;
 					height: 2rem;
 					margin-bottom: 0;
 					margin-left: 0.6rem;
-					background-color: var(--grey-500);
+					background-color: #303536;
 					border-color: transparent;
 					border-radius: 24px;
 
@@ -74,7 +74,7 @@ $breakpoint-tablet: 630px;
 						padding: 0;
 						text-align: inherit;
 						cursor: pointer;
-						background: var(--grey-500);
+						background: #303536;
 						border: 0;
 						border-color: initial;
 						outline: 0;
@@ -109,20 +109,20 @@ $breakpoint-tablet: 630px;
 						grid-row: 1;
 						width: 100%;
 						padding: 0 0 0 0.5rem;
-						color: var(--light);
-						background: var(--grey-500);
+						color: #f3ecde;
+						background: #303536;
 						border: none;
 						outline: none;
 						box-shadow: none;
 						font-size: 0.65rem;
 						&::placeholder {
-							color: var(--light);
+							color: #f3ecde;
 						}
 					}
 
 					&:hover button,
 					&:hover input {
-						background: var(--grey-400);
+						background: #394041;
 						transition: 300ms;
 					}
 				}
@@ -156,14 +156,14 @@ $breakpoint-tablet: 630px;
 							p {
 								display: flex;
 								align-items: center;
-								color: var(--light);
+								color: #f3ecde;
 								text-decoration: none;
 								list-style-type: none;
 								pointer-events: none;
 
 								strong {
 									margin: 0;
-									color: var(--light);
+									color: #f3ecde;
 								}
 							}
 						}
@@ -183,9 +183,9 @@ $breakpoint-tablet: 630px;
 								align-items: center;
 								// padding: 0.35rem 0.5rem;
 								margin: 0%;
-								color: var(--light);
+								color: #f3ecde;
 								text-decoration: none;
-								text-decoration-color: var(--light);
+								text-decoration-color: #f3ecde;
 								list-style-type: none;
 								transition: 200ms;
 
@@ -196,7 +196,7 @@ $breakpoint-tablet: 630px;
 									font-size: 0.4rem;
 									color: transparent;
 									background-color: red;
-									background-image: linear-gradient(45deg, var(--red), var(--blue-600));
+									background-image: linear-gradient(45deg, #e74343, #2c33ff);
 									background-repeat: repeat;
 									-webkit-background-clip: text;
 									background-clip: text;
@@ -232,7 +232,7 @@ $breakpoint-tablet: 630px;
 							// padding: 0.01rem 0 0 0;
 							margin: 0;
 							line-height: 1;
-							color: var(--light);
+							color: #f3ecde;
 							text-align: inherit;
 							vertical-align: middle;
 							background: transparent;
@@ -250,7 +250,7 @@ $breakpoint-tablet: 630px;
 							&:hover {
 								cursor: pointer;
 								background: transparent;
-								box-shadow: -0.1rem -0.1rem 0.1rem var(--light-10-100), 0.1rem 0.1rem 0.1rem var(--black-25-100);
+								box-shadow: -0.1rem -0.1rem 0.1rem #f3ecde0e, 0.1rem 0.1rem 0.1rem #00000042;
 								transition: 200ms;
 							}
 						}
@@ -274,13 +274,13 @@ $breakpoint-tablet: 630px;
 						padding-block: 0.5rem;
 						margin-right: 0.5rem;
 						cursor: pointer;
-						background: var(--grey-800);
+						background: #242729;
 						border: 0;
 						border-radius: 8px;
 						outline: none;
-						box-shadow: -0.1rem -0.1rem 0.1rem var(--light-10-100), 0.1rem 0.1rem 0.1rem var(--black-25-100);
+						box-shadow: -0.1rem -0.1rem 0.1rem #f3ecde0e, 0.1rem 0.1rem 0.1rem #00000042;
 						transition: 200ms all ease;
-						color: var(--light);
+						color: #f3ecde;
 						font-size: 0.9rem;
 						&:hover {
 							position: relative;
@@ -288,8 +288,7 @@ $breakpoint-tablet: 630px;
 							left: 2px;
 
 							filter: brightness(0.9);
-							box-shadow: inset -0.1rem -0.1rem 0.1rem var(--light-10-100),
-								inset 0.1rem 0.1rem 0.1rem var(--black-25-100);
+							box-shadow: inset -0.1rem -0.1rem 0.1rem #f3ecde0e, inset 0.1rem 0.1rem 0.1rem #00000042;
 							transition: 200ms all ease;
 						}
 					}
@@ -310,7 +309,7 @@ $breakpoint-tablet: 630px;
 						transition: 500ms;
 
 						&:hover {
-							box-shadow: -0.1rem -0.1rem 0.1rem var(--light-10-100), 0.1rem 0.1rem 0.1rem var(--black-25-100);
+							box-shadow: -0.1rem -0.1rem 0.1rem #f3ecde0e, 0.1rem 0.1rem 0.1rem #00000042;
 						}
 					}
 
@@ -318,13 +317,12 @@ $breakpoint-tablet: 630px;
 						min-width: 5.5rem;
 						font-weight: 300;
 						color: var(--white);
-						background: var(--green);
+						background: #00d079;
 						transition: 500ms;
 
 						&:hover {
 							filter: brightness(1.2);
-							box-shadow: inset -0.1rem -0.1rem 0.1rem var(--black-25-100),
-								inset 0.3rem 0.3rem 0.3rem var(--light-10-100);
+							box-shadow: inset -0.1rem -0.1rem 0.1rem #00000042, inset 0.3rem 0.3rem 0.3rem #f3ecde0e;
 						}
 					}
 
@@ -415,7 +413,7 @@ $breakpoint-tags: 1596px;
 	display: flex;
 	align-items: center;
 	height: 1.5rem;
-	background-color: var(--grey-800);
+	background-color: #242729;
 	transition: 2s;
 	transition-duration: 2s;
 
@@ -430,8 +428,8 @@ $breakpoint-tags: 1596px;
 				padding: 0.75rem;
 				margin: 0;
 				font-size: 0.9rem;
-				color: var(--light);
-				background: var(--grey-800);
+				color: #f3ecde;
+				background: #242729;
 			}
 		}
 	}
@@ -449,7 +447,7 @@ $breakpoint-tags: 1596px;
 			margin-top: 0;
 			margin-bottom: 0;
 			list-style: none;
-			background-color: var(--grey-800);
+			background-color: #242729;
 			li {
 				display: flex;
 				justify-content: space-around;
@@ -459,7 +457,7 @@ $breakpoint-tags: 1596px;
 					padding-block: 0.75rem;
 					transition: 200ms;
 					cursor: pointer;
-					color: var(--light);
+					color: #f3ecde;
 
 					&:hover {
 						color: var(--white);
@@ -494,7 +492,7 @@ $breakpoint-tags: 1596px;
 		z-index: 3;
 		height: 0;
 		padding: 1rem 2rem;
-		background-image: linear-gradient(95deg, var(--grey-800), transparent);
+		background-image: linear-gradient(95deg, #242729, transparent);
 	}
 
 	.right-shadow {
@@ -503,7 +501,7 @@ $breakpoint-tags: 1596px;
 		z-index: 3;
 		height: 0;
 		padding: 1rem 2rem;
-		background-image: linear-gradient(270deg, var(--grey-800), transparent);
+		background-image: linear-gradient(270deg, #242729, transparent);
 	}
 }
 

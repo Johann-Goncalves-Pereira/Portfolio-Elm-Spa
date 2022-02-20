@@ -1,31 +1,12 @@
 @use "../../abstracts/" as a;
 
 #kelpie-container {
-	///////////////////////////
-	--grey-900: #1c2021;
-	--grey-800: #242729;
-	--grey-500: #303536;
-	--grey-400: #394041;
-	--grey-200: #686f73;
-	///////////////////////////
-	--light-10-100: #f3ecde0e;
-	--black-25-100: #00000042;
-	--black-80-100: #1c2021c2;
-	--black-90-100: #000000e8;
-	///////////////////////////
-	--red: #e74343;
-	--light: #f3ecde;
-	--green: #00d079;
-	--blue-600: #2c33ff;
-	--blue-200: #1977f3;
-
-	//
 	* {
 		font-family: "Roboto", sans-serif;
 
 		&::selection {
 			color: var(--white);
-			background-color: var(--blue-200);
+			background-color: #1977f3;
 		}
 	}
 
@@ -36,11 +17,11 @@
 	transform: perspective(1000px) rotateX(var(--ctnr-x, 0deg)) rotateY(var(--ctnr-y, 0deg)) rotate(0deg);
 	transition: transform 1000ms ease-out;
 
-	// outline: 1px solid var(--clr-main);
+	// outline: 1px solid var(--clr-b-0);
 
 	overflow-y: auto;
 	overflow-x: hidden;
-	border: 0.25rem solid var(--clr-forward);
+	border: 0.25rem solid var(--clr-s-1);
 	border-radius: 0.5rem;
 	padding-block-end: 1rem;
 	margin: auto !important;
@@ -75,7 +56,7 @@
 		transform-origin: left;
 		transition: transform 500ms ease-in-out;
 
-		background-color: a.alpha(var(--clr-background), 0.75);
+		background-color: a.alpha(var(--clr-s-0), 0.75);
 
 		cursor: pointer;
 
@@ -129,7 +110,7 @@
 	}
 
 	&::placeholder {
-		color: var(--light);
+		color: #f3ecde;
 	}
 }
 

@@ -28,9 +28,9 @@
 
 				p {
 					margin: 0 8px;
-					color: var(--light);
+					color: #f3ecde;
 					text-decoration: underline;
-					color: var(--light);
+					color: #f3ecde;
 				}
 
 				&:nth-child(1) {
@@ -56,7 +56,7 @@
 		strong {
 			margin-bottom: 1.5rem;
 			font-size: 3rem;
-			color: var(--light);
+			color: #f3ecde;
 		}
 
 		// p {
@@ -72,7 +72,7 @@
 			p {
 				margin-left: 8px;
 				text-decoration: underline;
-				color: var(--light);
+				color: #f3ecde;
 			}
 		}
 
@@ -81,7 +81,7 @@
 			width: 30vw;
 			height: 2.5rem;
 			margin-top: 1.5rem;
-			background-color: var(--grey-500);
+			background-color: #303536;
 			border-color: transparent;
 			border-radius: 24px;
 			transition: 200ms;
@@ -92,7 +92,7 @@
 				padding: 0;
 				text-align: inherit;
 				cursor: pointer;
-				background: var(--grey-500);
+				background: #303536;
 				border: 0;
 				border-color: initial;
 				outline: 0;
@@ -126,14 +126,14 @@
 				grid-row: 1;
 				width: 100%;
 				padding: 0 0 0 0.5rem;
-				color: var(--light);
-				background: var(--grey-500);
+				color: #f3ecde;
+				background: #303536;
 				border: none;
 				outline: none;
 				box-shadow: none;
 
 				&::placeholder {
-					color: var(--light);
+					color: #f3ecde;
 				}
 			}
 
@@ -183,7 +183,7 @@
 
 				p {
 					margin: 0 !important;
-					color: var(--light);
+					color: #f3ecde;
 					cursor: pointer !important;
 				}
 			}

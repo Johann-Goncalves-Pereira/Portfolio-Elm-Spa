@@ -2,7 +2,7 @@ const { Elm } = require("../Main.elm");
 import "./load_stylesheet";
 
 let elmApp = Elm.Main.init({
-  node: document.getElementById("root"),
+  node: document.getRootNode,
   flags: JSON.parse(localStorage.getItem("storage")),
 });
 

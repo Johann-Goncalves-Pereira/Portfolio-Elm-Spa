@@ -1,12 +1,12 @@
 .play-one {
 	$shadow-position: 4px;
 
-	--strong: #fff;
-	--background: #f0f0fa;
-	--border: #f3f2f9;
-	--shadow: #dbdaea;
-	--text: #9896ab;
-	--ok: #28e39f;
+	$strong: #fff;
+	$background: #f0f0fa;
+	$border: #f3f2f9;
+	$shadow: #dbdaea;
+	$text: #9896ab;
+	$ok: #28e39f;
 
 	display: flex;
 	justify-content: space-between;
@@ -14,13 +14,13 @@
 	.white-shadow {
 		user-select: none;
 
-		border: 2px solid var(--border);
+		border: 2px solid $border;
 		border-radius: 32px;
 
-		box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 var(--shadow),
-			#{-$shadow-position} #{-$shadow-position} #{$shadow-position * 2} 0 var(--strong);
+		box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 $shadow,
+			#{-$shadow-position} #{-$shadow-position} #{$shadow-position * 2} 0 $strong;
 
-		background-color: var(--background);
+		background-color: $background;
 	}
 
 	&__container {
@@ -40,7 +40,7 @@
 
 	.light-container {
 		$gap-elements: 2rem;
-		background-color: var(--background);
+		background-color: $background;
 
 		&__toggle-container {
 			display: grid;
@@ -75,10 +75,10 @@
 						justify-content: space-around;
 						font-weight: 400;
 						font-size: 0.875rem;
-						color: var(--text);
+						color: $text;
 						z-index: 0;
 						transition: color 200ms ease-out, background-color 200ms ease-in-out;
-						background-color: var(--background);
+						background-color: $background;
 
 						&::before {
 							content: "On";
@@ -102,9 +102,9 @@
 						border-radius: 50%;
 						width: $before-size;
 						height: $before-size;
-						background-color: var(--strong);
+						background-color: $strong;
 
-						box-shadow: $shadow-position-before $shadow-position-before 2px 0 var(--shadow);
+						box-shadow: $shadow-position-before $shadow-position-before 2px 0 $shadow;
 
 						transition: inset-inline 200ms ease-in;
 						z-index: 1;
@@ -121,16 +121,16 @@
 					z-index: 1;
 
 					&:checked + .toggle__appearance {
-						background-color: var(--ok);
-						border: 2px solid var(--ok);
+						background-color: $ok;
+						border: 2px solid $ok;
 
 						&::before {
 							left: calc(100% - #{$before-size} - 8px);
 						}
 
 						& > span {
-							background-color: var(--ok);
-							color: var(--strong);
+							background-color: $ok;
+							color: $strong;
 						}
 					}
 				}
@@ -155,7 +155,7 @@
 					height: 2.5rem;
 					padding-inline: 1rem;
 					padding-inline-end: $padding-for-arrow;
-					color: var(--text);
+					color: $text;
 					opacity: 0;
 
 					option {
@@ -174,7 +174,7 @@
 
 					font-weight: 400;
 					font-size: 0.875rem;
-					color: var(--text);
+					color: $text;
 
 					svg {
 						position: absolute;
@@ -185,7 +185,7 @@
 						margin: auto;
 
 						path {
-							stroke: var(--text);
+							stroke: $text;
 						}
 					}
 				}
@@ -200,8 +200,8 @@
 					border-start-start-radius: 0;
 					border-start-end-radius: 0;
 
-					box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 var(--shadow);
-					background-color: var(--background);
+					box-shadow: $shadow-position $shadow-position #{$shadow-position * 2} 0 $shadow;
+					background-color: $background;
 
 					z-index: 0;
 				}
@@ -229,7 +229,7 @@
 					width: $size-svg;
 					height: $size-svg;
 
-					fill: var(--text);
+					fill: $text;
 				}
 			}
 		}
@@ -247,13 +247,13 @@
 				width: 8rem;
 				height: 2.5rem;
 
-				color: var(--text);
+				color: $text;
 
 				svg {
 					width: 1.3em;
 					height: auto;
 
-					fill: var(--text);
+					fill: $text;
 				}
 			}
 		}
@@ -268,8 +268,8 @@
 
 		width: 100%;
 
-		background-color: var(--clr-main);
-		box-shadow: inset 0 0 0 0 var(--clr-forward);
+		background-color: var(--clr-b-0);
+		box-shadow: inset 0 0 0 0 var(--clr-s-1);
 
 		transition: clip-path ease-in-out 500ms;
 
@@ -284,7 +284,7 @@
 			left: 1.85rem;
 
 			mix-blend-mode: difference;
-			color: var(--clr-main);
+			color: var(--clr-b-0);
 
 			font-weight: 700;
 			font-size: 1.5rem;
@@ -301,23 +301,23 @@
 
 		@keyframes colorChange {
 			0% {
-				box-shadow: inset 0 0 0 0 var(--clr-forward);
+				box-shadow: inset 0 0 0 0 var(--clr-s-1);
 			}
 			50% {
-				box-shadow: inset 50vw 0 0 0 var(--clr-forward);
+				box-shadow: inset 50vw 0 0 0 var(--clr-s-1);
 			}
 			50.001% {
-				box-shadow: inset 0 -50vh 0 0 var(--clr-forward);
+				box-shadow: inset 0 -50vh 0 0 var(--clr-s-1);
 			}
 			100% {
-				box-shadow: inset 0 0 0 0 var(--clr-forward);
+				box-shadow: inset 0 0 0 0 var(--clr-s-1);
 			}
 		}
 
 		.clip-path {
 			:is(h1, p, ::before, .clip-path__btm) {
 				mix-blend-mode: difference;
-				color: var(--clr-main);
+				color: var(--clr-b-0);
 
 				font-weight: 700;
 			}
@@ -330,7 +330,7 @@
 			}
 
 			&__btm {
-				background-color: var(--clr-forward);
+				background-color: var(--clr-s-1);
 				padding: 1rem;
 				border-radius: 0.5rem;
 			}

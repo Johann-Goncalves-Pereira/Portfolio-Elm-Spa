@@ -1,7 +1,13 @@
 module Svg.Base exposing (..)
 
 import Html exposing (Html)
-import Svg exposing (..)
+import Svg
+    exposing
+        ( defs
+        , g
+        , metadata
+        , svg
+        )
 import Svg.Attributes exposing (..)
 
 
@@ -76,4 +82,26 @@ infinite addClass =
             , fill "var(--clr-text)"
             ]
             []
+        ]
+
+
+circleColors : Int -> Html msg
+circleColors deg =
+    svg [ version "1.1", width "100%", height "100%", viewBox "-10 -10 220 220", style <| "--rotation:" ++ String.fromInt -deg ++ "deg;" ]
+        [ defs []
+            [ Svg.linearGradient [ id "redyel", gradientUnits "objectBoundingBox", x1 "0", y1 "0", x2 "1", y2 "1" ] [ Svg.stop [ offset "0%", stopColor "#ff0000" ] [], Svg.stop [ offset "100%", stopColor "#ffff00" ] [] ]
+            , Svg.linearGradient [ id "yelgre", gradientUnits "objectBoundingBox", x1 "0", y1 "0", x2 "0", y2 "1" ] [ Svg.stop [ offset "0%", stopColor "#ffff00" ] [], Svg.stop [ offset "100%", stopColor "#00ff00" ] [] ]
+            , Svg.linearGradient [ id "grecya", gradientUnits "objectBoundingBox", x1 "1", y1 "0", x2 "0", y2 "1" ] [ Svg.stop [ offset "0%", stopColor "#00ff00" ] [], Svg.stop [ offset "100%", stopColor "#00ffff" ] [] ]
+            , Svg.linearGradient [ id "cyablu", gradientUnits "objectBoundingBox", x1 "1", y1 "1", x2 "0", y2 "0" ] [ Svg.stop [ offset "0%", stopColor "#00ffff" ] [], Svg.stop [ offset "100%", stopColor "#0000ff" ] [] ]
+            , Svg.linearGradient [ id "blumag", gradientUnits "objectBoundingBox", x1 "0", y1 "1", x2 "0", y2 "0" ] [ Svg.stop [ offset "0%", stopColor "#0000ff" ] [], Svg.stop [ offset "100%", stopColor "#ff00ff" ] [] ]
+            , Svg.linearGradient [ id "magred", gradientUnits "objectBoundingBox", x1 "0", y1 "1", x2 "1", y2 "0" ] [ Svg.stop [ offset "0%", stopColor "#ff00ff" ] [], Svg.stop [ offset "100%", stopColor "#ff0000" ] [] ]
+            ]
+        , g [ fill "none", strokeWidth "15", transform "translate(100,100)" ]
+            [ Svg.path [ d "M 0,-100 A 100,100 0 0,1 86.6,-50", stroke "url(#redyel)" ] []
+            , Svg.path [ d "M 86.6,-50 A 100,100 0 0,1 86.6,50", stroke "url(#yelgre)" ] []
+            , Svg.path [ d "M 86.6,50 A 100,100 0 0,1 0,100", stroke "url(#grecya)" ] []
+            , Svg.path [ d "M 0,100 A 100,100 0 0,1 -86.6,50", stroke "url(#cyablu)" ] []
+            , Svg.path [ d "M -86.6,50 A 100,100 0 0,1 -86.6,-50", stroke "url(#blumag)" ] []
+            , Svg.path [ d "M -86.6,-50 A 100,100 0 0,1 0,-100", stroke "url(#magred)" ] []
+            ]
         ]

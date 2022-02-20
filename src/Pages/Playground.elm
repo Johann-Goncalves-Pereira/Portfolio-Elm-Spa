@@ -63,6 +63,7 @@ view model =
     { title = "Johann - Playground"
     , body =
         UI.layout model.route
+            (Just 20)
             [ viewMainContent
             , viewContainerOne model
             ]

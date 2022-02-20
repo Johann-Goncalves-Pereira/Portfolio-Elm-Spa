@@ -1,0 +1,20 @@
+:root,
+#root {
+	@for $i from 1 through 20 {
+		//: font-size
+		--fs-#{$i}: #{0.25em * $i};
+	}
+	@for $i from 2 through 20 {
+		$base-calc: 0.25 * $i;
+		--fsf-#{$i}: clamp(#{$base-calc}em, #{$base-calc * 2}vw, #{$base-calc * 2 - 0.5}em);
+	}
+	@for $i from 1 through 9 {
+		--fw-#{$i}: #{$i * 100};
+	}
+}
+
+.false-class------IDE {
+	--fsf-: 00;
+	--fs-: 00;
+	--fw-: 00;
+}
