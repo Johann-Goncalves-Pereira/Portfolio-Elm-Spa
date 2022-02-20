@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
-    "@types/node": "^16.11.3",
+    "@types/node": "^17.0.18",
     "autoprefixer": "^10.4.0",
     "babel-loader": "^8.0.6",
     "clean-terminal-webpack-plugin": "^3.0.0",
