@@ -9,6 +9,7 @@
 	&__nav {
 		display: flex;
 		justify-content: space-between;
+		gap: 1em;
 		align-items: center;
 		margin-inline: 2rem;
 
@@ -31,6 +32,10 @@
 		font-weight: 500;
 
 		cursor: pointer;
+
+		&--margin-left {
+			margin-left: auto;
+		}
 
 		&:first-child {
 			padding-inline-start: 1rem;
