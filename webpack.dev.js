@@ -1,4 +1,4 @@
-const merge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 const path = require("path");
 const webpack = require("webpack");
@@ -36,7 +36,7 @@ module.exports = merge(common, {
             options: {
               debug: true,
               verbose: true,
-              forceWatch: true,
+              // forceWatch: true,
             },
           },
         ],
@@ -54,13 +54,15 @@ module.exports = merge(common, {
   },
   devServer: {
     host: "0.0.0.0",
-    disableHostCheck: true,
-    inline: true,
-    stats: "errors-only",
-    contentBase: path.join(__dirname, "public"),
+    // disableHostCheck: true,
+    // inline: true,
+    // stats: "errors-only",
+    // contentBase: path.join(__dirname, "dist"),
     historyApiFallback: true,
-    overlay: true,
+    // overlay: true,
     hot: true,
+    port: 8080,
+    https: false,
   },
   devtool: "inline-source-map",
 });

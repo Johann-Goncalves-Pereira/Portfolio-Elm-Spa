@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/JavaScript/index.ts",
+  entry: "./src/JavaScript/index.js",
   plugins: [new CleanWebpackPlugin()],
   resolve: {
     extensions: [".wasm", ".mjs", ".js", ".json", ".elm", ".css", ".scss"],
