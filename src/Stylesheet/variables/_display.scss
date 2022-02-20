@@ -1,12 +1,25 @@
-:where(html) {
+:root,
+#root {
 	//& Border Radius
 	--br-r: 50%;
 	@for $i from 1 through 8 {
 		--br-#{$i * 2}: #{2px * $i};
 	}
 
-	@for $i from 1 through 10 {
+	@for $i from 1 through 11 {
 		//& Layer
-		--l-#{$i}: #{$i};
+		$negative-start: $i - 6;
+
+		@if $negative-start >= 0 {
+			--l-#{$negative-start}: #{$negative-start};
+		} @else {
+			--ln#{$negative-start}: #{$negative-start};
+		}
 	}
+}
+
+.false-class------IDE {
+	--br-: 00;
+	--ln-: 00;
+	--l-: 00;
 }
