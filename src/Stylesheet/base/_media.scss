@@ -1,23 +1,30 @@
+:root,
+#root {
+	--xxs: 240px;
+	--xs: 360px;
+	--sm: 480px;
+	--md: 768px;
+	--lg: 1024px;
+	--xl: 1440px;
+	--xxl: 1920px;
+}
+
 // Change html size for Rem unit change.
-@media (max-width: 1440px) {
+@media (max-width: var(--xl)) {
 	html {
 		font-size: 93.75%;
 	}
 }
 
-@media (max-width: 1024px) {
+@media (max-width: var(--lg)) {
 	html {
 		font-size: 87.5%;
 	}
 }
 
-@media (max-width: 730px) {
+@media (max-width: var(--md)) {
 	html {
 		font-size: 75%;
-	}
-
-	*::-webkit-scrollbar {
-		display: none;
 	}
 }
 
