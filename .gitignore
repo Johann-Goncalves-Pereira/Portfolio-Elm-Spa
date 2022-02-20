@@ -1,7 +1,6 @@
 # User
-.IDE 
+.IDE
 .vscode
-
 
 # Elm-Spa
 .DS_Store
@@ -9,7 +8,6 @@
 elm-stuff
 node_modules
 dist
-
 
 # Logs
 logs
@@ -134,3 +132,5 @@ dist
 elm-stuff
 # elm-repl generated files
 repl-temp-*
+
+public/index.**
