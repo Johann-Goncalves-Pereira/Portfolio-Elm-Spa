@@ -174,7 +174,7 @@ view model =
     , body =
         UI.layout model.route
             (Just model.pageColor)
-            [ viewMainContent
+            [ viewMainContent model
             , viewOtherProjects model
             ]
     }
@@ -184,8 +184,8 @@ view model =
 -- Main Content
 
 
-viewMainContent : Html Msg
-viewMainContent =
+viewMainContent : Model -> Html Msg
+viewMainContent model =
     article [ class "main-home" ]
         [ div [ class "main-home__container", attribute "transitionOne" "" ]
             [ h1 [ class "main-home__medium-title" ]
@@ -200,6 +200,7 @@ viewMainContent =
                 [ text "UI Developer"
                 ]
             ]
+        , viewPageChosenColor model
         ]
 
 
@@ -325,7 +326,6 @@ viewProjects model =
             div [ class <| "project" ] funcContent
     in
     [ container <| kelpie model
-    , viewPageChosenColor model
     , div [] <| blobsInfo model
     ]
 
