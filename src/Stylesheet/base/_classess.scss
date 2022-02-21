@@ -1,7 +1,11 @@
-.scroll {
+.scroll,
+body {
 	$scroll-size: 4px;
-
 	scrollbar-width: $scroll-size;
+	scrollbar-color: var(--clr-b-5);
+	scrollbar-width: thin;
+	overflow: auto;
+	overflow: overlay;
 
 	// https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
 	// don't work at firefox
@@ -18,14 +22,15 @@
 		}
 
 		&-thumb {
-			background: var(--clr-b-0);
+			background: var(--clr-b-5);
 			border-radius: 0.25rem;
+			transition: all 1000ms ease-in;
 		}
 	}
 }
 
 .selection {
 	&--none::selection {
-		// background-color: var(--clr-b-0);
+		// background-color: var(--clr-b-5);
 	}
 }
