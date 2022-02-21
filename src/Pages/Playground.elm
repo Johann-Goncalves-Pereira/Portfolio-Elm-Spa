@@ -64,6 +64,7 @@ view model =
     , body =
         UI.layout model.route
             (Just 20)
+            "playground"
             [ viewMainContent
             , viewContainerOne model
             ]

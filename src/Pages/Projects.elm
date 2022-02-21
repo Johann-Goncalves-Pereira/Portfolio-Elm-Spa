@@ -55,5 +55,5 @@ update msg model =
 view : Model -> View Msg
 view model =
     { title = "Johann - Projects"
-    , body = UI.layout model.route (Just 38) []
+    , body = UI.layout model.route (Just 38) "projects" []
     }

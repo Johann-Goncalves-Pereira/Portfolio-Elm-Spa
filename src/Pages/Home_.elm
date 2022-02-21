@@ -174,6 +174,7 @@ view model =
     , body =
         UI.layout model.route
             (Just model.pageColor)
+            "home"
             [ viewMainContent model
             , viewOtherProjects model
             ]
@@ -186,17 +187,17 @@ view model =
 
 viewMainContent : Model -> Html Msg
 viewMainContent model =
-    article [ class "main-home" ]
-        [ div [ class "main-home__container", attribute "transitionOne" "" ]
-            [ h1 [ class "main-home__medium-title" ]
+    section [ class "home" ]
+        [ div [ class "home__container", attribute "transitionOne" "" ]
+            [ h1 [ class "home__medium-title" ]
                 [ text "Johann Gonçalves Pereira"
                 ]
             , h2
-                [ class "main-home__big-title" ]
-                [ span [ class "main-home__big-title--no-break" ] [ text "Front-End " ]
+                [ class "home__big-title" ]
+                [ span [ class "home__big-title--no-break" ] [ text "Front-End " ]
                 , text "Developer"
                 ]
-            , h2 [ class "main-home__big-title" ]
+            , h2 [ class "home__big-title" ]
                 [ text "UI Developer"
                 ]
             ]
@@ -314,9 +315,8 @@ coordinatesVariables model =
         |> attribute "style"
 
 
-getWidthElement : Html.Attribute Float
-getWidthElement =
-    on "click" (target offsetWidth)
+
+--
 
 
 viewProjects : Model -> List (Html Msg)
