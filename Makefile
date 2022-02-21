@@ -5,10 +5,10 @@ clean:
 	rm -rf node_modules
 	rm -rf elm-stuff
 dep:
-	npm install
+	yarn install
 
 dev: dep
-	npm run-script build:dev
+	yarn run-script build:dev
 
 prod: dep
-	npm run-script build
+	yarn run-script build
