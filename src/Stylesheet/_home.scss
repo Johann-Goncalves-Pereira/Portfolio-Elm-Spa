@@ -324,7 +324,9 @@
 }
 
 .chosen-color {
-	position: relative;
+	position: absolute;
+	top: 30%;
+	left: 70%;
 	display: inline-block;
 
 	&::before {
@@ -353,11 +355,11 @@
 
 	svg {
 		$timing-function: cubic-bezier(0.96, -0.71, 0.58, 1);
-		transform: rotate(var(--rotation));
+		transform: rotate(var(--rotation, 0));
 		animation: rotation 1000ms $timing-function initial;
 		transition: transform 1000ms $timing-function;
 
-		$size: 10em;
+		$size: 20em;
 		width: $size;
 		height: $size;
 	}
