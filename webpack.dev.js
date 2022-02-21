@@ -21,7 +21,7 @@ module.exports = merge(common, {
     }),
     new CleanTerminalPlugin({
       message: `                 Dev server running on http://${HOST}:${PORT}`,
-      beforeCompile: true,
+      beforeCompile: false,
     }),
   ],
   module: {
@@ -61,7 +61,7 @@ module.exports = merge(common, {
     historyApiFallback: true,
     // overlay: true,
     hot: true,
-    port: 8080,
+    port: PORT,
     https: false,
   },
   devtool: "inline-source-map",

@@ -2,7 +2,7 @@ FROM node:16.13
 ARG BASE_API_URL
 ENV BASE_API_URL=${BASE_API_URL}
 WORKDIR /app
-COPY tsconfig.json ./
+# COPY tsconfig.json ./
 COPY postcss.config.js ./
 COPY webpack.* ./
 # COPY elm.d.ts ./
