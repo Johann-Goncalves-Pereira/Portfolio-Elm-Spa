@@ -19,10 +19,10 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       ENV: '"Development mode!"',
     }),
-    new CleanTerminalPlugin({
-      message: `                 Dev server running on http://${HOST}:${PORT}`,
-      beforeCompile: false,
-    }),
+    // new CleanTerminalPlugin({
+    //   message: `                 Dev server running on http://${HOST}:${PORT}`,
+    //   beforeCompile: false,
+    // }),
   ],
   module: {
     rules: [
