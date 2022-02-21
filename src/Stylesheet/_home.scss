@@ -1,20 +1,31 @@
 @use "sass:math";
 @use "./abstracts" as *;
 
-.main-home {
-	position: fixed;
-	margin: auto;
-	inset-block-start: 0;
-	inset-inline: 0;
-	height: 100vh;
+.root--home {
+	display: flex;
+	flex-direction: column;
+	height: 100vh !important;
+}
+
+.main--home {
+	display: inline-block;
+}
+
+.home {
+	position: relative;
+	height: 90vh;
 	max-width: 120rem;
+	background-color: var(--clr-s-0);
 
 	&__container {
-		position: inherit;
-		inset-inline: 12vmin;
-		inset-block: 20vmax;
+		position: absolute;
+		top: 20%;
+		left: 8%;
+		// inset-inline: 12vmin;
+		// inset-block: 20vmax;
 		display: flex;
 		flex-direction: column;
+		width: max-content;
 		row-gap: 0.5rem;
 	}
 
@@ -47,7 +58,7 @@
 
 	inset-inline: 0;
 	margin: auto;
-	margin-block-start: 90vh;
+	// margin-block-start: 90vh;
 	z-index: 1;
 
 	height: max-content;
@@ -104,7 +115,7 @@
 
 	&__content {
 		animation: floatPage 10000ms ease-in-out infinite;
-		// outline: 1px dashed alpha(var(--clr-b-0), 0.3);
+		// outline: 1px dashed alpha(var(--clr-b-5), 0.3);
 
 		// height: 500px;
 		// min-height: 500px;
@@ -327,7 +338,12 @@
 	position: absolute;
 	top: 30%;
 	left: 70%;
+
 	display: inline-block;
+
+	border-radius: var(--br-r);
+
+	cursor: pointer;
 
 	&::before {
 		content: "";
@@ -337,11 +353,12 @@
 
 		margin: auto;
 
-		width: 6px;
-		height: 12px;
-		background-color: var(--clr-s-1);
-		// background-color: var(--clr-b-0);
-		border: 1px solid var(--clr-b-2);
+		width: 10px;
+		height: 20px;
+		background-color: var(--clr-s-0);
+		// background-color: var(--clr-b-5);
+		outline: 2px solid var(--clr-b-4);
+		outline-offset: -5px;
 
 		border-end-end-radius: var(--br-r);
 		border-end-start-radius: var(--br-r);
@@ -350,16 +367,17 @@
 
 		z-index: var(--l-2);
 
-		transition: transform 2s ease;
+		transition: 1000ms ease-in;
 	}
 
 	svg {
 		$timing-function: cubic-bezier(0.96, -0.71, 0.58, 1);
+		$size: 20em;
+
 		transform: rotate(var(--rotation, 0));
 		animation: rotation 1000ms $timing-function initial;
 		transition: transform 1000ms $timing-function;
 
-		$size: 20em;
 		width: $size;
 		height: $size;
 	}
@@ -372,6 +390,28 @@
 		100% {
 			transform: rotate(var(--rotation));
 		}
+	}
+
+	&::after {
+		$size: 10em;
+
+		content: "";
+		position: absolute;
+		inset: 0;
+		margin: auto;
+
+		border-start-end-radius: var(--br-r);
+		border-start-start-radius: var(--br-r);
+		border-end-end-radius: var(--br-r);
+		border-end-start-radius: var(--br-r);
+
+		width: $size;
+		height: $size;
+
+		background-color: var(--clr-s-0);
+		box-shadow: 0 0 16px 10px var(--clr-b-5);
+
+		transition: box-shadow 1000ms ease-in;
 	}
 }
 
