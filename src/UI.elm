@@ -21,8 +21,8 @@ isRoute route compare =
             False
 
 
-layout : Route -> Maybe Int -> List (Html msg) -> List (Html msg)
-layout route clr children =
+layout : Route -> Maybe Int -> String -> List (Html msg) -> List (Html msg)
+layout route clr pageName children =
     let
         viewLink : String -> Route -> Bool -> Html msg
         viewLink label routes marginLeft =
@@ -38,7 +38,13 @@ layout route clr children =
                 ]
                 [ text label ]
     in
-    [ div [ id "root", attribute "style" <| "--clr-brand: " ++ String.fromInt (Maybe.withDefault 9 clr) ]
+    [ div
+        [ id "root"
+        , classList [ ( "scroll", True ), ( "root--" ++ pageName, True ) ]
+        , "--clr-brand: "
+            ++ String.fromInt (Maybe.withDefault 9 clr)
+            |> attribute "style"
+        ]
         [ header [ class "main-header" ]
             [ nav [ class "main-header__nav" ]
                 [ viewLink "Home" Route.Home_ False
@@ -46,6 +52,6 @@ layout route clr children =
                 , viewLink "Playground" Route.Playground False
                 ]
             ]
-        , main_ [] children
+        , main_ [ class <| "main--" ++ pageName ] children
         ]
     ]
