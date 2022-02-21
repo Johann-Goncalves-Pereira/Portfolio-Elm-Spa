@@ -85,6 +85,7 @@ video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	transition: background-color 200ms ease-in;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -110,11 +111,14 @@ html {
 }
 
 body {
+}
+
+#root {
+	position: relative;
 	line-height: 1;
 	font-family: "Rubik", sans-serif;
 	color: var(--clr-t);
-	background-color: var(--clr-s-0);
-	overflow: overlay;
+	width: 100%;
 }
 
 ol,
