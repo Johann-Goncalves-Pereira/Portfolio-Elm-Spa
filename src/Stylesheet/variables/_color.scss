@@ -3,34 +3,25 @@
 :root,
 #root {
 	// Put your var Colors
-	// color: hsl(305, 100%, 50%);
+	// color: hsl(191, 100%, 50%);
 
 	//& clr -> Color
 	// :: s -> surface
 	// :: b -> Brand
 	// :: t -> Text
 
-	@include defineColorHSL(--clr-s-0, 252, 100%, 4%);
-	@include defineColorHSL(--clr-s-1, 255, 6%, 14%);
-	// 28
-	@include defineColorHSL(--clr-b-0, var(--clr-brand), 100%, 50%);
-	@include defineColorHSL(--clr-b-1, calc(var(--clr-brand) + 9), 100%, 50%);
-	@include defineColorHSL(--clr-b-2, calc(var(--clr-brand) - 2), 100%, 50%);
-	@include defineColorHSL(--clr-b-3, calc(var(--clr-brand) - 2), 100%, 30%);
+	@for $light from 0 through 8 {
+		$l-base: $light + 1;
+		@include defineColorHSL(--clr-s-#{$light}, calc(var(--clr-brand) + 180), 10%, #{$l-base * 5%});
+	}
+
+	@for $clr from 1 through 9 {
+		@include defineColorHSL(--clr-b-#{$clr}, var(--clr-brand), 100%, #{$clr * 10%});
+	}
 
 	@include defineColorHSL(--clr-t, 249, 100%, 99%);
 
-	@media (prefers-color-scheme: dark) {
-		@include defineColorHSL(--clr-s-0, 0, 0%, 99%);
-		@include defineColorHSL(--clr-s-1, 0, 0%, 85%);
-
-		@include defineColorHSL(--clr-b-0, var(--clr-brand), 100%, 50%);
-		@include defineColorHSL(--clr-b-1, calc(var(--clr-brand) + 9), 100%, 50%);
-		@include defineColorHSL(--clr-b-2, calc(var(--clr-brand) - 2), 100%, 50%);
-		@include defineColorHSL(--clr-b-3, calc(var(--clr-brand) - 2), 100%, 30%);
-
-		@include defineColorHSL(--clr-t, 252, 100%, 4%);
-	}
+	// @media (prefers-color-scheme: dark) {
 }
 
 .false-class------IDE {

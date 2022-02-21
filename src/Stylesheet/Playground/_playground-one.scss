@@ -268,7 +268,7 @@
 
 		width: 100%;
 
-		background-color: var(--clr-b-0);
+		background-color: var(--clr-b-5);
 		box-shadow: inset 0 0 0 0 var(--clr-s-1);
 
 		transition: clip-path ease-in-out 500ms;
@@ -284,7 +284,7 @@
 			left: 1.85rem;
 
 			mix-blend-mode: difference;
-			color: var(--clr-b-0);
+			color: var(--clr-b-5);
 
 			font-weight: 700;
 			font-size: 1.5rem;
@@ -317,7 +317,7 @@
 		.clip-path {
 			:is(h1, p, ::before, .clip-path__btm) {
 				mix-blend-mode: difference;
-				color: var(--clr-b-0);
+				color: var(--clr-b-5);
 
 				font-weight: 700;
 			}
