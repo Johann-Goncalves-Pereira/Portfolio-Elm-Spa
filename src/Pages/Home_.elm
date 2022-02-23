@@ -53,7 +53,7 @@ page shared req =
 
 type alias Model =
     { route : Route
-    , scrollSample : Bool
+    , showProjectContent : Bool
     , pageColor : Int
     , sectionSize : ( Int, Int )
     , componentMouse : Mouse.Mouse
@@ -65,7 +65,7 @@ type alias Model =
 init : ( Model, Cmd Msg )
 init =
     ( { route = Route.Home_
-      , scrollSample = False
+      , showProjectContent = False
       , pageColor = 0
       , sectionSize = ( 0, 0 )
       , componentMouse = Mouse.init
@@ -97,7 +97,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ShowSample ->
-            ( { model | scrollSample = not model.scrollSample }, Cmd.none )
+            ( { model | showProjectContent = not model.showProjectContent }, Cmd.none )
 
         PeekRandomColor ->
             ( model, Random.generate PeekColor (Random.int 1 360) )
@@ -168,7 +168,7 @@ view model =
 viewMainContent : Model -> Html Msg
 viewMainContent model =
     section [ class "home" ]
-        [ div [ class "home__container", attribute "transitionOne" "" ]
+        [ div [ class "home__container" ]
             [ h1 [ class "home__medium-title" ]
                 [ text "Johann Gonçalves Pereira"
                 ]
@@ -287,12 +287,16 @@ coordinatesVariables model =
         ( x, y ) =
             calcDeg model
     in
-    "--ctnr-x:"
-        ++ Round.round 3 x
-        ++ "deg;--ctnr-y:"
-        ++ Round.round 3 y
-        ++ "deg;"
-        |> attribute "style"
+    if model.showProjectContent then
+        attribute "style" "--rotate-ctnr: 6deg;"
+
+    else
+        "--mouse-pos-x:"
+            ++ Round.round 3 x
+            ++ "deg;--mouse-pos-y:"
+            ++ Round.round 3 y
+            ++ "deg;"
+            |> attribute "style"
 
 
 
@@ -325,14 +329,14 @@ kelpie : Model -> List (Html Msg)
 kelpie model =
     let
         isOverflowHidden =
-            if model.scrollSample == True then
+            if model.showProjectContent == True then
                 style "overflow" "auto"
 
             else
                 style "overflow" "hidden"
 
         isSpanDisplayed =
-            if model.scrollSample == True then
+            if model.showProjectContent == True then
                 style "transform" "scale(0)"
 
             else
