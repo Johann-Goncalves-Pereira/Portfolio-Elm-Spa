@@ -1,32 +1,40 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
-import Browser.Dom exposing (Viewport, getViewport, getViewportOf)
+import Browser.Dom exposing (Viewport, getViewport)
 import Browser.Events as BrowserE
-import DOM exposing (offsetWidth, target)
-import Effect
 import Gen.Params.Home_ exposing (Params)
 import Gen.Route as Route exposing (Route)
-import Html exposing (Attribute, Html, a, article, b, br, div, h1, h2, h3, img, main_, p, section, span, strong, text)
-import Html.Attributes exposing (attribute, class, id, src, style)
-import Html.Events exposing (on, onClick)
-import Html.Events.Extra.Mouse as EMouse
+import Html
+    exposing
+        ( Attribute
+        , Html
+        , a
+        , b
+        , br
+        , div
+        , h1
+        , h2
+        , h3
+        , p
+        , section
+        , span
+        , strong
+        , text
+        )
+import Html.Attributes exposing (attribute, class, id, style)
+import Html.Events exposing (onClick)
 import Json.Decode as Decode exposing (Decoder)
-import Page exposing (Page)
+import Page
+import Pages.Components.Mouse as Mouse
 import Preview.Kelpie.Kelpie as Kelpie exposing (view)
 import Random
-import Request exposing (Request)
+import Request
 import Round
-import Shared exposing (subscriptions)
+import Shared
 import Svg.Base as MSvg
 import Task
 import UI
 import View exposing (View)
-
-
-type alias EventWithMovement =
-    { mouseEvent : EMouse.Event
-    , movement : ( Float, Float )
-    }
 
 
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
@@ -48,7 +56,9 @@ type alias Model =
     , scrollSample : Bool
     , pageColor : Int
     , sectionSize : ( Int, Int )
-    , mousePosition : ( Float, Float )
+    , componentMouse : Mouse.Mouse
+
+    -- , uiModel : UI.Model Msg
     }
 
 
@@ -58,9 +68,10 @@ init =
       , scrollSample = False
       , pageColor = 0
       , sectionSize = ( 0, 0 )
-      , mousePosition = ( 0, 0 )
+      , componentMouse = Mouse.init
+
+      --   , uiModel = UI.defaultSettings
       }
-      -- , Cmd.none
     , Cmd.batch
         [ Task.perform GotViewPort getViewport
         , Random.int 1 360
@@ -79,7 +90,7 @@ type Msg
     | PeekColor Int
     | GotViewPort Viewport
     | GotNewSize ( Int, Int )
-    | MouseMovement ( Float, Float )
+    | ComponentMouseMsg Mouse.MsgMouse
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -116,43 +127,8 @@ update msg model =
             , Cmd.none
             )
 
-        MouseMovement ( x, y ) ->
-            ( { model | mousePosition = ( x, y ) }, Cmd.none )
-
-
-
--- Decoders
-
-
-decodeWithMovement : Decoder EventWithMovement
-decodeWithMovement =
-    Decode.map2 EventWithMovement
-        EMouse.eventDecoder
-        movementDecoder
-
-
-movementDecoder : Decoder ( Float, Float )
-movementDecoder =
-    Decode.map2 (\a b -> ( a, b ))
-        (Decode.field "offsetX" Decode.float)
-        (Decode.field "offsetY" Decode.float)
-
-
-onMove : (EventWithMovement -> msg) -> Html.Attribute msg
-onMove tag =
-    let
-        decoder =
-            decodeWithMovement
-                |> Decode.map tag
-                |> Decode.map options
-
-        options message =
-            { message = message
-            , stopPropagation = False
-            , preventDefault = True
-            }
-    in
-    Html.Events.custom "mousemove" decoder
+        ComponentMouseMsg mouseMsg ->
+            ( { model | componentMouse = Mouse.update mouseMsg model.componentMouse }, Cmd.none )
 
 
 
@@ -172,12 +148,16 @@ view : Model -> View Msg
 view model =
     { title = "Johann - Home"
     , body =
-        UI.layout model.route
-            (Just model.pageColor)
-            "home"
-            [ viewMainContent model
-            , viewOtherProjects model
-            ]
+        UI.layout
+            { route = Route.Home_
+            , pageMainColor = Just model.pageColor
+            , pageName = "home"
+            , mousePos = Nothing
+            , mainTagContent =
+                [ viewMainContent model
+                , viewOtherProjects model
+                ]
+            }
     }
 
 
@@ -247,10 +227,10 @@ calcDeg model =
             45 * 16 / 2
 
         mouseX =
-            Tuple.first model.mousePosition
+            Mouse.xPos model.componentMouse
 
         mouseY =
-            Tuple.second model.mousePosition
+            Mouse.yPos model.componentMouse
 
         correctMousePositionX : Float
         correctMousePositionX =
@@ -276,11 +256,11 @@ calcDeg model =
 
         posX : Float
         posX =
-            correctMousePositionX - width
+            (correctMousePositionX - width) * -1
 
         posY : Float
         posY =
-            (correctMousePositionY - height) * -1
+            correctMousePositionY - height
 
         depthX : Float
         depthX =
@@ -385,7 +365,7 @@ kelpie model =
         ]
     , section
         [ class "project__content"
-        , onMove (.movement >> MouseMovement)
+        , Mouse.onChangeOffsetPosition ComponentMouseMsg
         , coordinatesVariables model
         ]
         [ List.concat

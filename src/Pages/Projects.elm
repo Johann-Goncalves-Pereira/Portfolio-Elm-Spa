@@ -55,5 +55,15 @@ update msg model =
 view : Model -> View Msg
 view model =
     { title = "Johann - Projects"
-    , body = UI.layout model.route (Just 38) "projects" []
+    , body =
+        UI.layout
+            { route = Route.Home_
+            , pageMainColor = Nothing
+            , pageName = "projects"
+            , mousePos = Nothing
+            , mainTagContent =
+                []
+            }
+
+    -- UI.layout model.route (Just 38) "projects" []
     }
