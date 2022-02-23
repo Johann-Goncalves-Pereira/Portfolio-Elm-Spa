@@ -62,12 +62,16 @@ view : Model -> View Msg
 view model =
     { title = "Johann - Playground"
     , body =
-        UI.layout model.route
-            (Just 20)
-            "playground"
-            [ viewMainContent
-            , viewContainerOne model
-            ]
+        UI.layout
+            { route = Route.Home_
+            , pageMainColor = Nothing
+            , pageName = "playground"
+            , mousePos = Nothing
+            , mainTagContent =
+                [ viewMainContent
+                , viewContainerOne model
+                ]
+            }
     }
 
 

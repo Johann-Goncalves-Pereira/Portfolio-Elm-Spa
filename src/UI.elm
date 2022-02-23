@@ -2,7 +2,7 @@ module UI exposing (layout)
 
 import Gen.Route as Route exposing (Route)
 import Html exposing (Html, a, button, div, header, main_, nav, text)
-import Html.Attributes exposing (attribute, class, classList, href, id)
+import Html.Attributes exposing (attribute, class, classList, href, id, style)
 
 
 isRoute : Route -> Route -> Bool
@@ -21,37 +21,58 @@ isRoute route compare =
             False
 
 
-layout : Route -> Maybe Int -> String -> List (Html msg) -> List (Html msg)
-layout route clr pageName children =
-    let
-        viewLink : String -> Route -> Bool -> Html msg
-        viewLink label routes marginLeft =
-            a
-                [ href <| Route.toHref routes
-                , class "main-header__links"
-                , classList
-                    [ ( "main-header__links--current-page"
-                      , isRoute route routes
-                      )
-                    , ( "main-header__links--margin-left", marginLeft )
-                    ]
-                ]
-                [ text label ]
-    in
+viewLink : Route -> String -> Route -> Bool -> Html msg
+viewLink route linkText routes hasMarginLeft =
+    a
+        [ href <| Route.toHref routes
+        , class "main-header__links"
+        , classList
+            [ ( "main-header__links--current-page"
+              , isRoute route routes
+              )
+            , ( "main-header__links--margin-left", hasMarginLeft )
+            ]
+        ]
+        [ text linkText ]
+
+
+layout :
+    { route : Route
+    , pageMainColor : Maybe Int
+    , pageName : String
+    , mousePos : Maybe { posX : Float, posY : Float }
+    , mainTagContent : List (Html msg)
+    }
+    -> List (Html msg)
+layout model =
     [ div
         [ id "root"
-        , classList [ ( "scroll", True ), ( "root--" ++ pageName, True ) ]
+        , classList [ ( "scroll", True ), ( "root--" ++ model.pageName, True ) ]
         , "--clr-brand: "
-            ++ String.fromInt (Maybe.withDefault 9 clr)
+            ++ String.fromInt (Maybe.withDefault 90 model.pageMainColor)
             |> attribute "style"
         ]
-        [ header [ class "main-header" ]
+        [ --
+          case model.mousePos of
+            Just mousePos ->
+                div
+                    [ "--screenMousePosX:"
+                        ++ String.fromFloat mousePos.posX
+                        ++ "--screenMousePosY:"
+                        ++ String.fromFloat mousePos.posY
+                        |> attribute "style"
+                    ]
+                    []
+
+            Nothing ->
+                text ""
+        , header [ class "main-header" ]
             [ nav [ class "main-header__nav" ]
-                [ viewLink "Home" Route.Home_ False
-                , viewLink "Projects" Route.Projects True
-                , viewLink "Playground" Route.Playground False
+                [ viewLink model.route "Home" Route.Home_ False
+                , viewLink model.route "Projects" Route.Projects True
+                , viewLink model.route "Playground" Route.Playground False
                 ]
             ]
-        , main_ [ class <| "main--" ++ pageName ] children
+        , main_ [ class <| "main--" ++ model.pageName ] model.mainTagContent
         ]
     ]
