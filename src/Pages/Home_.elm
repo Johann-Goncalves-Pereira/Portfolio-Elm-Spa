@@ -227,10 +227,10 @@ calcDeg model =
             45 * 16 / 2
 
         mouseX =
-            Mouse.xPos model.componentMouse
+            Mouse.xOffsetPos model.componentMouse
 
         mouseY =
-            Mouse.yPos model.componentMouse
+            Mouse.yOffsetPos model.componentMouse
 
         correctMousePositionX : Float
         correctMousePositionX =
