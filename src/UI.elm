@@ -1,8 +1,54 @@
-module UI exposing (layout)
+module UI exposing (UIConfig, defaultConfig, layout)
 
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, button, div, header, main_, nav, text)
+import Html exposing (Attribute, Html, a, button, div, header, main_, nav, text)
 import Html.Attributes exposing (attribute, class, classList, href, id, style)
+
+
+
+-- Model
+
+
+type alias UIConfig msg =
+    { route : Route
+    , pageName : String
+    , pageMainColor : Maybe Int
+    , mousePos : Maybe { posX : Float, posY : Float }
+    , mainTagContent : List (Html msg)
+    , mainTagAttrs : List (Attribute msg)
+    }
+
+
+type alias Link msg =
+    { routeStatic : Route
+    , routeReceived : UIConfig msg
+    , routeName : String
+    , hasMarginLeft : Bool
+    }
+
+
+defaultLink : Link msg
+defaultLink =
+    { routeStatic = Route.Home_
+    , routeReceived = defaultConfig
+    , routeName = ""
+    , hasMarginLeft = False
+    }
+
+
+defaultConfig : UIConfig msg
+defaultConfig =
+    { route = Route.Home_
+    , pageName = ""
+    , pageMainColor = Nothing
+    , mousePos = Nothing
+    , mainTagContent = []
+    , mainTagAttrs = []
+    }
+
+
+
+-- Structure
 
 
 isRoute : Route -> Route -> Bool
@@ -21,30 +67,32 @@ isRoute route compare =
             False
 
 
-viewLink : Route -> String -> Route -> Bool -> Html msg
-viewLink route linkText routes hasMarginLeft =
+
+-- View
+
+
+viewLink : Link msg -> Html msg
+viewLink model =
     a
-        [ href <| Route.toHref routes
+        [ href <| Route.toHref model.routeStatic
         , class "main-header__links"
         , classList
             [ ( "main-header__links--current-page"
-              , isRoute route routes
+              , isRoute model.routeReceived.route model.routeStatic
               )
-            , ( "main-header__links--margin-left", hasMarginLeft )
+            , ( "main-header__links--margin-left", model.hasMarginLeft )
             ]
         ]
-        [ text linkText ]
+        [ text model.routeName ]
 
 
-layout :
-    { route : Route
-    , pageMainColor : Maybe Int
-    , pageName : String
-    , mousePos : Maybe { posX : Float, posY : Float }
-    , mainTagContent : List (Html msg)
-    }
-    -> List (Html msg)
+layout : UIConfig msg -> List (Html msg)
 layout model =
+    let
+        mainClass : Attribute msg
+        mainClass =
+            class <| "main--" ++ model.pageName
+    in
     [ div
         [ id "root"
         , classList [ ( "scroll", True ), ( "root--" ++ model.pageName, True ) ]
@@ -68,11 +116,26 @@ layout model =
                 text ""
         , header [ class "main-header" ]
             [ nav [ class "main-header__nav" ]
-                [ viewLink model.route "Home" Route.Home_ False
-                , viewLink model.route "Projects" Route.Projects True
-                , viewLink model.route "Playground" Route.Playground False
+                [ viewLink
+                    { defaultLink
+                        | routeName = "Home"
+                        , routeReceived = model
+                        , routeStatic = Route.Home_
+                    }
+                , viewLink
+                    { routeName = "Projects"
+                    , routeReceived = model
+                    , routeStatic = Route.Projects
+                    , hasMarginLeft = True
+                    }
+                , viewLink
+                    { defaultLink
+                        | routeName = "Playground"
+                        , routeReceived = model
+                        , routeStatic = Route.Playground
+                    }
                 ]
             ]
-        , main_ [ class <| "main--" ++ model.pageName ] model.mainTagContent
+        , main_ (mainClass :: model.mainTagAttrs) model.mainTagContent
         ]
     ]
