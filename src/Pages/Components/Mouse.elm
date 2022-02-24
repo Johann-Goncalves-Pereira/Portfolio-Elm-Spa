@@ -1,4 +1,14 @@
-module Pages.Components.Mouse exposing (..)
+module Pages.Components.Mouse exposing
+    ( EventPeekOffsetPosition
+    , EventPeekScreenPosition
+    , Mouse
+    , MsgMouse
+    , init
+    , onChangeOffsetPosition
+    , update
+    , xOffsetPos
+    , yOffsetPos
+    )
 
 import Html exposing (Attribute)
 import Html.Events exposing (custom)
@@ -26,7 +36,7 @@ type alias Mouse =
 
 init : Mouse
 init =
-    Mouse ( 0, 0 ) ( 0, 0 )
+    Mouse ( 1920, 1920 ) ( 0, 0 )
 
 
 type MsgMouse

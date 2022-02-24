@@ -9,7 +9,7 @@
 
 	background-color: var(--clr-s-0);
 
-	& + main {
+	& + .main {
 		height: Max(calc(100vh - var(--header-height)), 100%);
 	}
 

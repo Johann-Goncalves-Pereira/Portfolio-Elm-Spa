@@ -14,7 +14,8 @@
 	// -webkit-transform: perspective(1000px) rotateX(8deg) rotateY(-38deg) rotate(6deg);
 	// transform: perspective(1000px) rotateX(8deg) rotateY(-38deg) rotate(6deg);
 	// ? the x and y are inverted because make sense
-	transform: perspective(1000px) rotateX(var(--ctnr-x, 0deg)) rotateY(var(--ctnr-y, 0deg)) rotate(0deg);
+	transform: perspective(1000px) rotateX(var(--mouse-pos-x, 8deg)) rotateY(var(--mouse-pos-y, -28deg))
+		rotate(var(--rotate-ctnr, 0));
 	transition: transform 1000ms ease-out;
 
 	// outline: 1px solid var(--clr-b-5);
