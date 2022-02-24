@@ -9,7 +9,7 @@ import Page
 import Request
 import Shared
 import Svg.Logo as SvgL
-import UI
+import UI exposing (defaultConfig)
 import View exposing (View)
 
 
@@ -63,14 +63,13 @@ view model =
     { title = "Johann - Playground"
     , body =
         UI.layout
-            { route = Route.Playground
-            , pageMainColor = Nothing
-            , pageName = "playground"
-            , mousePos = Nothing
-            , mainTagContent =
-                [ viewMainContent
-                , viewContainerOne model
-                ]
+            { defaultConfig
+                | route = Route.Home_
+                , pageName = "playground"
+                , mainTagContent =
+                    [ viewMainContent
+                    , viewContainerOne model
+                    ]
             }
     }
 

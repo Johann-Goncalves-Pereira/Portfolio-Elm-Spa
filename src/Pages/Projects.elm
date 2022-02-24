@@ -5,7 +5,7 @@ import Gen.Route as Route exposing (Route)
 import Page
 import Request
 import Shared
-import UI
+import UI exposing (defaultConfig)
 import View exposing (View)
 
 
@@ -57,13 +57,8 @@ view model =
     { title = "Johann - Projects"
     , body =
         UI.layout
-            { route = Route.Projects
-            , pageMainColor = Nothing
-            , pageName = "projects"
-            , mousePos = Nothing
-            , mainTagContent =
-                []
+            { defaultConfig
+                | route = Route.Home_
+                , pageName = "projects"
             }
-
-    -- UI.layout model.route (Just 38) "projects" []
     }

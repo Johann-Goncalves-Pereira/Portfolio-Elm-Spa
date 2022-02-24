@@ -33,7 +33,7 @@ import Round
 import Shared
 import Svg.Base as MSvg
 import Task
-import UI
+import UI exposing (defaultConfig)
 import View exposing (View)
 
 
@@ -149,14 +149,14 @@ view model =
     { title = "Johann - Home"
     , body =
         UI.layout
-            { route = Route.Home_
-            , pageMainColor = Just model.pageColor
-            , pageName = "home"
-            , mousePos = Nothing
-            , mainTagContent =
-                [ viewMainContent model
-                , viewOtherProjects model
-                ]
+            { defaultConfig
+                | route = Route.Home_
+                , pageMainColor = Just model.pageColor
+                , pageName = "home"
+                , mainTagContent =
+                    [ viewMainContent model
+                    , viewOtherProjects model
+                    ]
             }
     }
 
@@ -262,13 +262,32 @@ calcDeg model =
         posY =
             correctMousePositionY - height
 
+        preDepthX : Float
+        preDepthX =
+            posX * 10 / 250
+
+        preDepthY : Float
+        preDepthY =
+            posY * 10 / 250
+
         depthX : Float
         depthX =
-            posX * 10 / 250
+            maxDepth preDepthX
 
         depthY : Float
         depthY =
-            posY * 10 / 250
+            maxDepth preDepthY
+
+        maxDepth : Float -> Float
+        maxDepth position =
+            if position > 10 then
+                10
+
+            else if position < -10 then
+                -10
+
+            else
+                position
 
         --! How to debug in elm
         -- _ =
@@ -292,9 +311,9 @@ coordinatesVariables model =
 
     else
         "--mouse-pos-x:"
-            ++ Round.round 3 x
+            ++ Round.round 2 x
             ++ "deg;--mouse-pos-y:"
-            ++ Round.round 3 y
+            ++ Round.round 2 y
             ++ "deg;"
             |> attribute "style"
 

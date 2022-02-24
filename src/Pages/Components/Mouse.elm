@@ -1,9 +1,10 @@
 module Pages.Components.Mouse exposing
-    ( Mouse
+    ( EventPeekOffsetPosition
+    , EventPeekScreenPosition
+    , Mouse
     , MsgMouse
     , init
     , onChangeOffsetPosition
-    , onChangeScreenPosition
     , update
     , xOffsetPos
     , yOffsetPos
@@ -11,7 +12,7 @@ module Pages.Components.Mouse exposing
 
 import Html exposing (Attribute)
 import Html.Events exposing (custom)
-import Html.Events.Extra.Mouse as EMouse
+import Html.Events.Extra.Mouse as EMouse exposing (onMove)
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -88,41 +89,6 @@ onChangeOffsetPosition extMsg =
     custom "mousemove" decoder
 
 
-
--- Decode Screen
-
-
-decodeChangeScreenPosition : Decoder EventPeekScreenPosition
-decodeChangeScreenPosition =
-    Decode.map2 EventPeekScreenPosition
-        EMouse.eventDecoder
-        changeScreenPositionDecoder
-
-
-changeScreenPositionDecoder : Decoder ( Float, Float )
-changeScreenPositionDecoder =
-    Decode.map2 (\a b -> ( a, b ))
-        (Decode.field "offsetX" Decode.float)
-        (Decode.field "offsetY" Decode.float)
-
-
-onChangeScreenPosition : (MsgMouse -> msg) -> Attribute msg
-onChangeScreenPosition extMsg =
-    let
-        decoder =
-            decodeChangeScreenPosition
-                |> Decode.map (.movement >> OffsetPosition >> extMsg)
-                |> Decode.map options
-
-        options message =
-            { message = message
-            , stopPropagation = False
-            , preventDefault = True
-            }
-    in
-    custom "mousemove" decoder
-
-
 xOffsetPos : Mouse -> Float
 xOffsetPos model =
     Tuple.first model.mouseOffsetPosition
@@ -131,3 +97,14 @@ xOffsetPos model =
 yOffsetPos : Mouse -> Float
 yOffsetPos model =
     Tuple.second model.mouseOffsetPosition
+
+
+mouseScreenPos : EMouse.Event -> ( Float, Float )
+mouseScreenPos mouseEvent =
+    mouseEvent.screenPos
+
+
+
+-- xScreenPos : Float
+-- xScreenPos =
+--     Tuple.first <| mouseScreenPos onMove
