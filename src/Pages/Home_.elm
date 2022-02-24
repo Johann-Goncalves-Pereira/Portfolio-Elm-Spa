@@ -33,7 +33,7 @@ import Round
 import Shared
 import Svg.Base as MSvg
 import Task
-import UI
+import UI exposing (defaultConfig)
 import View exposing (View)
 
 
@@ -149,14 +149,14 @@ view model =
     { title = "Johann - Home"
     , body =
         UI.layout
-            { route = Route.Home_
-            , pageMainColor = Just model.pageColor
-            , pageName = "home"
-            , mousePos = Nothing
-            , mainTagContent =
-                [ viewMainContent model
-                , viewOtherProjects model
-                ]
+            { defaultConfig
+                | route = Route.Home_
+                , pageMainColor = Just model.pageColor
+                , pageName = "home"
+                , mainTagContent =
+                    [ viewMainContent model
+                    , viewOtherProjects model
+                    ]
             }
     }
 
@@ -227,10 +227,10 @@ calcDeg model =
             45 * 16 / 2
 
         mouseX =
-            Mouse.xPos model.componentMouse
+            Mouse.xOffsetPos model.componentMouse
 
         mouseY =
-            Mouse.yPos model.componentMouse
+            Mouse.yOffsetPos model.componentMouse
 
         correctMousePositionX : Float
         correctMousePositionX =
@@ -307,9 +307,9 @@ coordinatesVariables model =
             calcDeg model
     in
     "--ctnr-x:"
-        ++ Round.round 3 x
+        ++ Round.round 2 x
         ++ "deg;--ctnr-y:"
-        ++ Round.round 3 y
+        ++ Round.round 2 y
         ++ "deg;"
         |> attribute "style"
 
