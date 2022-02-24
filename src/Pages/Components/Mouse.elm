@@ -1,4 +1,13 @@
-module Pages.Components.Mouse exposing (..)
+module Pages.Components.Mouse exposing
+    ( Mouse
+    , MsgMouse
+    , init
+    , onChangeOffsetPosition
+    , onChangeScreenPosition
+    , update
+    , xOffsetPos
+    , yOffsetPos
+    )
 
 import Html exposing (Attribute)
 import Html.Events exposing (custom)
@@ -26,7 +35,7 @@ type alias Mouse =
 
 init : Mouse
 init =
-    Mouse ( 0, 0 ) ( 0, 0 )
+    Mouse ( 1920, 1920 ) ( 0, 0 )
 
 
 type MsgMouse
@@ -114,11 +123,11 @@ onChangeScreenPosition extMsg =
     custom "mousemove" decoder
 
 
-xPos : Mouse -> Float
-xPos model =
+xOffsetPos : Mouse -> Float
+xOffsetPos model =
     Tuple.first model.mouseOffsetPosition
 
 
-yPos : Mouse -> Float
-yPos model =
+yOffsetPos : Mouse -> Float
+yOffsetPos model =
     Tuple.second model.mouseOffsetPosition

@@ -73,6 +73,6 @@ layout model =
                 , viewLink model.route "Playground" Route.Playground False
                 ]
             ]
-        , main_ [ class <| "main--" ++ model.pageName ] model.mainTagContent
+        , main_ [ class <| "main main--" ++ model.pageName ] model.mainTagContent
         ]
     ]

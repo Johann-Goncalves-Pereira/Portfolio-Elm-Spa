@@ -63,7 +63,7 @@ view model =
     { title = "Johann - Playground"
     , body =
         UI.layout
-            { route = Route.Home_
+            { route = Route.Playground
             , pageMainColor = Nothing
             , pageName = "playground"
             , mousePos = Nothing
