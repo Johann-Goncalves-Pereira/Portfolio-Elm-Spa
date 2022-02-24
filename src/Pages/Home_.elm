@@ -262,13 +262,32 @@ calcDeg model =
         posY =
             correctMousePositionY - height
 
+        preDepthX : Float
+        preDepthX =
+            posX * 10 / 250
+
+        preDepthY : Float
+        preDepthY =
+            posY * 10 / 250
+
         depthX : Float
         depthX =
-            posX * 10 / 250
+            maxDepth preDepthX
 
         depthY : Float
         depthY =
-            posY * 10 / 250
+            maxDepth preDepthY
+
+        maxDepth : Float -> Float
+        maxDepth position =
+            if position > 10 then
+                10
+
+            else if position < -10 then
+                -10
+
+            else
+                position
 
         --! How to debug in elm
         -- _ =
