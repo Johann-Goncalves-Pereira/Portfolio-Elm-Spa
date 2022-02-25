@@ -29,7 +29,7 @@ import Html.Attributes
         , src
         , type_
         )
-import Preview.Kelpie.Svg
+import Preview.Kelpie.KelpieSvg
     exposing
         ( svgKelpieBell
         , svgKelpieDots

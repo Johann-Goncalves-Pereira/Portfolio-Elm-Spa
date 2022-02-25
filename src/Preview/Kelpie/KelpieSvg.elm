@@ -1,4 +1,4 @@
-module Preview.Kelpie.Svg exposing (..)
+module Preview.Kelpie.KelpieSvg exposing (..)
 
 import Html exposing (Html)
 import Svg
