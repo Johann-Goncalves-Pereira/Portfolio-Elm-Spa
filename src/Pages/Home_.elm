@@ -214,7 +214,7 @@ calcDeg model =
 
         size : Float
         size =
-            875 * windowSize / 1925
+            875 * windowSize / 1250
 
         -- 852 = 1925
         -- x = 730
@@ -262,32 +262,24 @@ calcDeg model =
         posY =
             correctMousePositionY - height
 
-        preDepthX : Float
-        preDepthX =
-            posX * 10 / 250
+        maxDepth : Float -> Float
+        maxDepth pos =
+            if pos * 10 / 250 < -10 then
+                -10
 
-        preDepthY : Float
-        preDepthY =
-            posY * 10 / 250
+            else if pos * 10 / 250 > 10 then
+                10
+
+            else
+                pos * 10 / 250
 
         depthX : Float
         depthX =
-            maxDepth preDepthX
+            maxDepth posX
 
         depthY : Float
         depthY =
-            maxDepth preDepthY
-
-        maxDepth : Float -> Float
-        maxDepth position =
-            if position > 10 then
-                10
-
-            else if position < -10 then
-                -10
-
-            else
-                position
+            maxDepth posY
 
         --! How to debug in elm
         -- _ =
