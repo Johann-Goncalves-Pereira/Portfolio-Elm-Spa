@@ -21,7 +21,7 @@ import Html
         , strong
         , text
         )
-import Html.Attributes exposing (attribute, class, id, style)
+import Html.Attributes exposing (attribute, class, id, src, style)
 import Html.Events exposing (onClick)
 import Json.Decode as Decode exposing (Decoder)
 import Page
@@ -152,7 +152,6 @@ view model =
             { defaultConfig
                 | route = Route.Home_
                 , pageMainColor = Just model.pageColor
-                , pageName = "home"
                 , mainTagContent =
                     [ viewMainContent model
                     , viewOtherProjects model
@@ -214,7 +213,7 @@ calcDeg model =
 
         size : Float
         size =
-            875 * windowSize / 1925
+            875 * windowSize / 1250
 
         -- 852 = 1925
         -- x = 730
@@ -262,32 +261,24 @@ calcDeg model =
         posY =
             correctMousePositionY - height
 
-        preDepthX : Float
-        preDepthX =
-            posX * 10 / 250
+        maxDepth : Float -> Float
+        maxDepth pos =
+            if pos * 10 / 250 < -10 then
+                -10
 
-        preDepthY : Float
-        preDepthY =
-            posY * 10 / 250
+            else if pos * 10 / 250 > 10 then
+                10
+
+            else
+                pos * 10 / 250
 
         depthX : Float
         depthX =
-            maxDepth preDepthX
+            maxDepth posX
 
         depthY : Float
         depthY =
-            maxDepth preDepthY
-
-        maxDepth : Float -> Float
-        maxDepth position =
-            if position > 10 then
-                10
-
-            else if position < -10 then
-                -10
-
-            else
-                position
+            maxDepth posY
 
         --! How to debug in elm
         -- _ =
@@ -364,20 +355,26 @@ kelpie model =
     [ section [ class "project__information" ]
         [ p []
             [ boldText "Kelpie"
-            , text <|
-                " was a personal project I did in my spare time. "
-                    ++ "It helped me to understand the basics of"
+            , text
+                """
+                was a personal project I did in my spare time. 
+                It helped me to understand the basics of
+                """
             , boldText "Elm"
-            , text <|
-                ", but what this project gave me the most was "
-                    ++ "the absurd advance I had learning"
+            , text
+                """
+                but what this project gave me the most was
+                the absurd advance I had learning
+                """
             , boldText "Css/Scss."
             ]
         , br [] []
         , p []
-            [ text <|
-                "This was my first attempt to make a website by myself"
-                    ++ ", not copying from a course or a teacher."
+            [ text
+                """
+                This was my first attempt to make a website by myself
+                not copying from a course or a teacher.
+                """
             ]
         , br [] []
         , p []
@@ -476,7 +473,6 @@ blobsInfo model =
                     [ text
                         """
                         Software never stops, just keeps growing and getting more better.
-                        
                         """
                     ]
                 ]

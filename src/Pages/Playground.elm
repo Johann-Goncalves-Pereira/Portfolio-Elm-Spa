@@ -65,7 +65,6 @@ view model =
         UI.layout
             { defaultConfig
                 | route = Route.Home_
-                , pageName = "playground"
                 , mainTagContent =
                     [ viewMainContent
                     , viewContainerOne model

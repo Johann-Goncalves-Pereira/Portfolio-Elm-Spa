@@ -59,6 +59,5 @@ view model =
         UI.layout
             { defaultConfig
                 | route = Route.Home_
-                , pageName = "projects"
             }
     }

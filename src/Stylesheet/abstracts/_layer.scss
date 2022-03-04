@@ -1,0 +1,9 @@
+@mixin layers($l: 0, $p: relative) {
+	position: $p;
+
+	@if $l >= 0 {
+		z-index: var(--lp-#{$l});
+	} @else {
+		z-index: var(--ln-#{$l});
+	}
+}
