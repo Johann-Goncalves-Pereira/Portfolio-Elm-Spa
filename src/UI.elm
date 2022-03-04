@@ -11,7 +11,6 @@ import Html.Attributes exposing (attribute, class, classList, href, id, style)
 
 type alias UIConfig msg =
     { route : Route
-    , pageName : String
     , pageMainColor : Maybe Int
     , mousePos : Maybe { posX : Float, posY : Float }
     , mainTagContent : List (Html msg)
@@ -19,31 +18,30 @@ type alias UIConfig msg =
     }
 
 
-type alias Link msg =
+type alias Link =
     { routeStatic : Route
-    , routeReceived : UIConfig msg
+    , routeReceived : Route
     , routeName : String
     , hasMarginLeft : Bool
-    }
-
-
-defaultLink : Link msg
-defaultLink =
-    { routeStatic = Route.Home_
-    , routeReceived = defaultConfig
-    , routeName = ""
-    , hasMarginLeft = False
     }
 
 
 defaultConfig : UIConfig msg
 defaultConfig =
     { route = Route.Home_
-    , pageName = ""
     , pageMainColor = Nothing
     , mousePos = Nothing
     , mainTagContent = []
     , mainTagAttrs = []
+    }
+
+
+defaultLink : Link
+defaultLink =
+    { routeStatic = Route.Home_
+    , routeReceived = Route.Home_
+    , routeName = ""
+    , hasMarginLeft = False
     }
 
 
@@ -67,18 +65,34 @@ isRoute route compare =
             False
 
 
+caseNamePage : Route -> String
+caseNamePage route =
+    case route of
+        Route.Home_ ->
+            "Home"
+
+        Route.Projects ->
+            "Projects"
+
+        Route.Playground ->
+            "Playground"
+
+        Route.NotFound ->
+            "Not Found"
+
+
 
 -- View
 
 
-viewLink : Link msg -> Html msg
+viewLink : Link -> Html msg
 viewLink model =
     a
         [ href <| Route.toHref model.routeStatic
         , class "main-header__links"
         , classList
             [ ( "main-header__links--current-page"
-              , isRoute model.routeReceived.route model.routeStatic
+              , isRoute model.routeReceived model.routeStatic
               )
             , ( "main-header__links--margin-left", model.hasMarginLeft )
             ]
@@ -91,11 +105,11 @@ layout model =
     let
         mainClass : Attribute msg
         mainClass =
-            class <| "main--" ++ model.pageName
+            class <| "main--" ++ caseNamePage model.route
     in
     [ div
         [ id "root"
-        , classList [ ( "scroll", True ), ( "root--" ++ model.pageName, True ) ]
+        , classList [ ( "scroll", True ), ( "root--" ++ caseNamePage model.route, True ) ]
         , "--clr-brand: "
             ++ String.fromInt (Maybe.withDefault 90 model.pageMainColor)
             |> attribute "style"
@@ -118,21 +132,21 @@ layout model =
             [ nav [ class "main-header__nav" ]
                 [ viewLink
                     { defaultLink
-                        | routeName = "Home"
-                        , routeReceived = model
+                        | routeName = caseNamePage Route.Home_
                         , routeStatic = Route.Home_
+                        , routeReceived = model.route
                     }
                 , viewLink
-                    { routeName = "Projects"
-                    , routeReceived = model
+                    { routeName = caseNamePage Route.Projects
                     , routeStatic = Route.Projects
+                    , routeReceived = model.route
                     , hasMarginLeft = True
                     }
                 , viewLink
                     { defaultLink
-                        | routeName = "Playground"
-                        , routeReceived = model
+                        | routeName = caseNamePage Route.Playground
                         , routeStatic = Route.Playground
+                        , routeReceived = model.route
                     }
                 ]
             ]
