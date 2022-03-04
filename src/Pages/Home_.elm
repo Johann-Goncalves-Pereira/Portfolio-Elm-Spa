@@ -21,7 +21,7 @@ import Html
         , strong
         , text
         )
-import Html.Attributes exposing (attribute, class, id, style)
+import Html.Attributes exposing (attribute, class, id, src, style)
 import Html.Events exposing (onClick)
 import Json.Decode as Decode exposing (Decoder)
 import Page
@@ -152,7 +152,6 @@ view model =
             { defaultConfig
                 | route = Route.Home_
                 , pageMainColor = Just model.pageColor
-                , pageName = "home"
                 , mainTagContent =
                     [ viewMainContent model
                     , viewOtherProjects model
@@ -356,20 +355,26 @@ kelpie model =
     [ section [ class "project__information" ]
         [ p []
             [ boldText "Kelpie"
-            , text <|
-                " was a personal project I did in my spare time. "
-                    ++ "It helped me to understand the basics of"
+            , text
+                """
+                was a personal project I did in my spare time. 
+                It helped me to understand the basics of
+                """
             , boldText "Elm"
-            , text <|
-                ", but what this project gave me the most was "
-                    ++ "the absurd advance I had learning"
+            , text
+                """
+                but what this project gave me the most was
+                the absurd advance I had learning
+                """
             , boldText "Css/Scss."
             ]
         , br [] []
         , p []
-            [ text <|
-                "This was my first attempt to make a website by myself"
-                    ++ ", not copying from a course or a teacher."
+            [ text
+                """
+                This was my first attempt to make a website by myself
+                not copying from a course or a teacher.
+                """
             ]
         , br [] []
         , p []
@@ -468,7 +473,6 @@ blobsInfo model =
                     [ text
                         """
                         Software never stops, just keeps growing and getting more better.
-                        
                         """
                     ]
                 ]
